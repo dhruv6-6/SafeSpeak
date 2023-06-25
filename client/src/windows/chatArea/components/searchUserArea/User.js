@@ -4,7 +4,7 @@ import icon1 from '../../../../images/userIcons/1.jpg'
 import icon2 from '../../../../images/userIcons/2.jpg'
 
 
-const User = ({id , name , img , desc , active , focus , onclick})=>{
+const User = ({id , name , img , active , focus , onclick})=>{
     const iconList = [icon1 , icon2];
     return(
         <>
@@ -27,7 +27,7 @@ const User = ({id , name , img , desc , active , focus , onclick})=>{
                             <p className="userNameInfo lightText">{name}</p>
                         </div>
                         <div className="description">
-                            <p className="descriptionInfo">{desc}</p>
+                            <p className="descriptionInfo"></p>
                         </div>
                     </div>
                 </button>
@@ -48,7 +48,7 @@ const User = ({id , name , img , desc , active , focus , onclick})=>{
                                 <p className="userNameInfo darkText">{name}</p>
                             </div>
                             <div className="description">
-                                <p className="descriptionInfo">{desc}</p>
+                                <p className="descriptionInfo"></p>
                                 <div className="userLogLine"></div>
                             </div>
                         </div>
