@@ -10,7 +10,11 @@
     "react-dom": "^18.2.0",
     "react-native-switch-selector": "^2.3.0",
     "react-scripts": "5.0.1",
+<<<<<<< HEAD
     "react-scroll-to-bottom": "^4.2.0",
+=======
+    "socket.io-client": "^4.7.0",
+>>>>>>> 17352e0b9a2deb5ea0bc09b610d10ad205f04b9b
     "web-vitals": "^2.1.4"
   },
   "scripts": {
