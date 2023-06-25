@@ -2,10 +2,12 @@ import React from "react";
 import './User.css'
 import icon1 from '../../../../images/userIcons/1.jpg'
 import icon2 from '../../../../images/userIcons/2.jpg'
+import icon3 from '../../../../images/userIcons/3.jpg'
+import icon4 from '../../../../images/userIcons/4.jpg'
 
 
 const User = ({id , name , img , active , focus , onclick})=>{
-    const iconList = [icon1 , icon2];
+    const iconList = [icon1 , icon2 , icon3 , icon4];
     return(
         <>
             {

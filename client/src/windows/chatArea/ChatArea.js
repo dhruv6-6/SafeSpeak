@@ -21,12 +21,12 @@ const ChatArea = ()=>{
             if(user.id===id){
                 setCurrentUser(id);
                 return({
-                    id: user.id , name:user.name , img :user.img  , active:user.active , focus:1
+                    id: user.id , name:user.name , img :user.img, active:user.active , focus:1
                 })
             }
             else{
                 return({
-                    id: user.id , name:user.name , img :user.img  , active:user.active , focus:0
+                    id: user.id , name:user.name , img :user.img, active:user.active , focus:0
                 })
             }
         }))
