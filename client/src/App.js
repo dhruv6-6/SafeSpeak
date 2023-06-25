@@ -24,6 +24,7 @@ function App() {
         setRequests(1);
         setEnter(0);
     }
+    
     const enterOnClick = ()=>{
         setRequests(0);
         setEnter(1);
