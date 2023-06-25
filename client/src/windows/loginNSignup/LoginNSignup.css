@@ -53,16 +53,19 @@
     height:35px;
     width: 250px;
     border-radius: 10px;
+    display: inline-block;
     background-color: #F9FCF8;
     box-shadow: 3px 3px 10px 0px rgba(0, 0, 0, 0.28) inset;
     border-style: none;
-}
-.userNameInputBox::placeholder{
+    padding-left: 20px;
+    margin: 8px 0;
     color: rgba(0, 0, 0, 0.54);
-    text-align: center;
     font-size: 16px;
     font-family: Montserrat;
     font-weight: 600;
+}
+.userNameInputBox:focus{
+    outline: none;
 }
 
 .passwordLoginPage{
@@ -77,19 +80,23 @@
     height:35px;
     width: 250px;
     border-radius: 10px;
+    display: inline-block;
     background-color: #F9FCF8;
     box-shadow: 3px 3px 10px 0px rgba(0, 0, 0, 0.28) inset;
     border-style: none;
-}
-.passwordInputBox::placeholder{
+    padding-left: 20px;
+    margin: 8px 0;
     color: rgba(0, 0, 0, 0.54);
-    text-align: center;
     font-size: 16px;
     font-family: Montserrat;
-    font-weight: 600;
+    font-weight: 600
+}
+.passwordInputBox:focus{
+    outline: none;
 }
 
 .enterLoginPage{
+    margin-top: 6px;
     width:100%;
     height:50px;
     background-color: transparent;

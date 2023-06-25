@@ -95,53 +95,55 @@ const LoginNSignup = (props) => {
     return (
         <div className="loginNSignupMainBody">
             <div className="mainBoxLoginArea">
-                <div className="welcomeBack">Welcome Back</div>
-                <div className="loginNSignupOption">
-                    <div className="loginNsignupButtonArea">
-                        <ToggleSwitch label="Login" onclick={clicking} />
+                    <div className="welcomeBack">Welcome Back</div>
+                    <div className="loginNSignupOption">
+                        <div className="loginNsignupButtonArea">
+                            <ToggleSwitch label="Login" onclick={clicking} />
+                        </div>
                     </div>
-                </div>
-                <div className="userNameLoginPage">
-                    <input
-                        className="userNameInputBox"
-                        placeholder="Username"
-                        onChange={(e) => {
-                            curUserData.setUsername(e.target.value);
-                        
-                        }}
-                    ></input>
-                </div>
-                <div className="passwordLoginPage">
-                    <input
-                        className="passwordInputBox"
-                        placeholder="Password"
-                        onChange={(e) => {
-                            curUserData.setPassword(e.target.value);
-                        }}
-                    ></input>
-                </div>
-                <div className="enterLoginPage">
-                    {login ? (
-                        <button
-                            className="enterButton"
-                            onClick={() => {
-                                enter();
+                    <form>
+                    <div className="userNameLoginPage">
+                        <input
+                            className="userNameInputBox"
+                            placeholder="Username"
+                            onChange={(e) => {
+                                curUserData.setUsername(e.target.value);
+                            
                             }}
-                        >
-                            Log in
-                        </button>
-                    ) : (
-                        <button
-                            className="enterButton"
-                            onClick={() => {
-                                console.log("WHEN CLICKED\n",curUserData)
-                                enter();
+                        ></input>
+                    </div>
+                    <div className="passwordLoginPage">
+                        <input
+                            className="passwordInputBox"
+                            placeholder="Password"
+                            onChange={(e) => {
+                                curUserData.setPassword(e.target.value);
                             }}
-                        >
-                            Sign up
-                        </button>
-                    )}
-                </div>
+                        ></input>
+                    </div>
+                    <div className="enterLoginPage">
+                        {login ? (
+                            <button
+                                className="enterButton"
+                                onClick={() => {
+                                    enter();
+                                }}
+                            >
+                                Log in
+                            </button>
+                        ) : (
+                            <button
+                                className="enterButton"
+                                onClick={() => {
+                                    console.log("WHEN CLICKED\n",curUserData)
+                                    enter();
+                                }}
+                            >
+                                Sign up
+                            </button>
+                        )}
+                    </div>
+                    </form>
             </div>
         </div>
     );

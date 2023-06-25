@@ -41,13 +41,13 @@
     box-sizing: border-box;
   }
   .inner_12:before {
-    content: "Log in";
+    content: "Log In";
     padding-left: 30px;
     background-color:  #03373B;
     color: #F9FCF8;
   }
   .inner_12:after {
-    content: "Sign up";
+    content: "Sign Up";
     padding-right: 30px;
     background-color:  #03373B;
     color: #F9FCF8;

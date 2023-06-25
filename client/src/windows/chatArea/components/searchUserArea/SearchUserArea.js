@@ -1,9 +1,16 @@
-import {React , useState} from "react";
+import {React , useState , useEffect} from "react";
 import './SearchUserArea.css';
 import search from '../../../../images/icons/search.png'
 import User from './User';
 
 const SearchUserArea  = ({users , changeUser})=>{
+
+    useEffect(()=>{
+        const search1 = document.getElementsByClassName('searchUserInputBox')[0];
+        search1.addEventListener('keyup',function(e){
+            if (e.which == 13) this.blur();
+        });
+    } , []);
 
     return(
         <div className="searchUserAreaMainBody">
