@@ -13,12 +13,21 @@ var socket = io.connect("http://localhost:3001", {
 });
 
 function App() {
-    const [enter, setEnter] = useState(0);
+    const [enter, setEnter] = useState(1);
     const [requests , setRequests] = useState(0);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [privateKey, setPrivateKey] = useState("");
     const [publicKey, setPublicKey] = useState("");
+
+    const reqOnClick = ()=>{
+        setRequests(1);
+        setEnter(0);
+    }
+    const enterOnClick = ()=>{
+        setRequests(0);
+        setEnter(1);
+    }
 
     var curUserData = {
         socketID: socket.id,
@@ -35,14 +44,14 @@ function App() {
         <div className="mainBody">
             {enter ? (
                 <>
-                    <TopBar />
-                    <ChatArea  socket={socket} curUserData={curUserData}/>
+                    <TopBar onclick={reqOnClick} state="chat"/>
+                    <ChatArea  socket={socket} curUserData={curUserData} />
                 </>
             ) : (
                 requests
                 ?
                 <>
-                    <TopBar />
+                    <TopBar onclick={enterOnClick} state="req"/>
                     <RequestNGroup />
                 </>
                 :
