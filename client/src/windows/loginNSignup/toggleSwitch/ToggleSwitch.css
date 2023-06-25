@@ -1,0 +1,75 @@
+.container {
+    text-align: center;
+    background-color: #F9FCF8;
+  }
+  .toggle-switch {
+    position: relative;
+    width: 250px;
+    display: inline-block;
+    text-align: left;
+    top: 8px;
+    background-color: transparent;
+  }
+  .checkbox {
+    background-color: transparent;
+    display: none;
+  }
+  .label {
+    background-color: transparent;
+    display: block;
+    overflow: hidden;
+    cursor: pointer;
+    border: 0 solid  #03373B;
+    border-radius: 10px;
+  }
+  .inner {
+    background-color: transparent;
+    display: block;
+    width: 200%;
+    margin-left: -100%;
+    transition: margin 0.3s ease-in 0s;
+  }
+  .inner:before,
+  .inner:after {
+    float: left;
+    width: 50%;
+    height: 36px;
+    padding: 0;
+    line-height: 36px;
+    color: #F9FCF8;
+    font-weight: bold;
+    box-sizing: border-box;
+  }
+  .inner:before {
+    content: "Log in";
+    padding-left: 30px;
+    background-color:  #03373B;
+    color: #F9FCF8;
+  }
+  .inner:after {
+    content: "Sign up";
+    padding-right: 30px;
+    background-color:  #03373B;
+    color: #F9FCF8;
+    text-align: right;
+  }
+  .switch {
+    background-color: transparent;
+    display: block;
+    width: 125px;
+    margin: 5px;
+    background: #F9FCF8;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 115px;
+    border: 0 solid #F9FCF8;
+    border-radius: 7px;
+    transition: all 0.3s ease-in 0s;
+  }
+  .checkbox:checked + .label .inner {
+    margin-left: 0;
+  }
+  .checkbox:checked + .label .switch {
+    right: 0px;
+  }
