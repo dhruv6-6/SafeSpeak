@@ -45,18 +45,23 @@
     display: flex;
     flex-direction: column;
 }
+.searchContainer{
+    margin-top: 40px;
+    background-color: transparent;
+    width:74%;
+    margin-left: 13%;
+    height:35px;
+}
 .searchIconAddUser{
     position: absolute;
     background-color: transparent;
-    margin-top: 47px;
-    margin-left: 80px;
+    margin-top: 7.5px;
+    margin-left: 9px;
     height:20px;
 }
 .searchUserInputBoxAddUser{
-    margin-top: 40px;
     height:35px;
-    width: 74%;
-    margin-left: 13%;
+    width: 100%;
     border-radius: 20px;
     background-color: #D4E4D3;
     box-shadow: 3px 3px 10px 0px rgba(0, 0, 0, 0.28) inset;
@@ -76,7 +81,7 @@
     padding-top: 10px;
     margin-top: 14px;
     height: calc(100% - 100px);
-    max-height: 50vh;
+    max-height: 40vh;
     border-radius: 20px;
     background-color: #F9FCF8;
     display: flex;

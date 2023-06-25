@@ -24,8 +24,10 @@ const RequestNGroup = ()=>{
                 <div className="searchUserAreaRequests">
                     <div className="addUserBox">
                         <div className="searchBarAddUser">
-                            <img src={search} className="searchIconAddUser"></img>
-                            <input className="searchUserInputBoxAddUser" placeholder="Type Username"></input>
+                            <div className="searchContainer">
+                                <img src={search} className="searchIconAddUser"></img>
+                                <input className="searchUserInputBoxAddUser" placeholder="Type Username"></input>
+                            </div>
                         </div>
                         <div className="userLogDisplayAddUser">
                             {
