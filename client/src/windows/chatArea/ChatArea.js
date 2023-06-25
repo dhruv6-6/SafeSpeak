@@ -36,7 +36,7 @@ const ChatArea = (props)=>{
             })
             setUsers(newUserList);
         })
-        socket.on("friend-disconnect" , data=>{
+        socket.on("friend-disconnected" , data=>{
             console.log(data, "disconnected\n");
             let newUserList = users.map((e)=>{
                 if (e.name===data){
@@ -62,7 +62,7 @@ const ChatArea = (props)=>{
         })
 
         
-    },[socket , curUserData.username , curUserData.password]);
+    },[socket , curUserData.username , curUserData.password , users] );
 
     return(
         <div className="chatAreaMainBody">
