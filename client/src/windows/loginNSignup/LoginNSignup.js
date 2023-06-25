@@ -1,25 +1,26 @@
-import {React , useState , useEffect} from "react";
-import './LoginNSignup.css';
+import { React, useState, useEffect } from "react";
+import "./LoginNSignup.css";
 import ToggleSwitch from "./toggleSwitch/ToggleSwitch";
 import {
     generateRSAKeys,
     encrypt,
     encryptPrivateKey,
     decrypt,
-    decryptPrivateKey
+    decryptPrivateKey,
 } from "../../helper.js";
-   
-const LoginNSignup = (props) => {
-    const [login , setLogin] = useState(1);
 
-    const clicking = () =>{
-        setLogin(1^login);
-    }
+const LoginNSignup = (props) => {
+    const [login, setLogin] = useState(1);
+
+    const clicking = () => {
+        setLogin(1 ^ login);
+    };
 
     const { socket, curUserData, setEnter } = props;
-    console.log(curUserData);
 
     const enter = () => {
+        console.log(curUserData);
+
         if (curUserData.password && curUserData.username) {
             if (!login) {
                 generateRSAKeys().then(({ publicKey, privateKey }) => {
@@ -31,6 +32,7 @@ const LoginNSignup = (props) => {
                     ).then((encryptedPrivateKey) => {
                         encrypt(publicKey, curUserData.password).then(
                             (encryptedPassword) => {
+                            
                                 socket.emit("sign-up-init", {
                                     username: curUserData.username,
                                     publicKey,
@@ -43,30 +45,27 @@ const LoginNSignup = (props) => {
                     });
                 });
             } else {
-                console.log("Asking\n");
-                socket.emit("login-init" , curUserData.username);
+                console.log("Asking\n" , curUserData.username , curUserData.password);
+
+                socket.emit("login-init", curUserData.username);
             }
         }
     };
 
     useEffect(() => {
         socket.on("sign-up-complete", (data) => {
-            socket.emit("get-duoList" , curUserData.username)
+            socket.emit("get-duoList", curUserData.username);
             setEnter(1);
         });
-        socket.on("login-response" , data=>{
-            console.log("got it\n");
+        socket.on("login-response", (data) => {
+            console.log(data, curUserData);
             decryptPrivateKey(
                 data.encryptedPrivateKey,
                 curUserData.username + curUserData.password
             ).then((privateKey) => {
                 decrypt(privateKey, data.encryptedPassword, 0).then(
                     (password) => {
-                        console.log(
-                            "compare",
-                            password,
-                            curUserData.password
-                        );
+                        console.log("compare", password, curUserData.password);
                         if (password === curUserData.password) {
                             curUserData.setPublicKey(data.publicKey);
                             curUserData.setPrivateKey(privateKey);
@@ -81,20 +80,20 @@ const LoginNSignup = (props) => {
                 );
             });
         });
-        socket.on("login-success" , data=>{
+        socket.on("login-success", (data) => {
             socket.emit("get-duoList", curUserData.username);
-            setEnter(1); 
-        })
+            setEnter(1);
+        });
 
         return () => {
             socket.off("sign-up-complete");
             socket.off("login-response");
             socket.off("login-success");
         };
-    }, [socket , curUserData.username , curUserData.password ]);
+    }, [socket , curUserData.password , curUserData.username]);
 
-    return(
-        <div className="loginNSignupMainBody"> 
+    return (
+        <div className="loginNSignupMainBody">
             <div className="mainBoxLoginArea">
                 <div className="welcomeBack">Welcome Back</div>
                 <div className="loginNSignupOption">
@@ -106,27 +105,42 @@ const LoginNSignup = (props) => {
                     <input
                         className="userNameInputBox"
                         placeholder="Username"
-                        onClick = {(e)=>{curUserData.setUsername(e.target.value)}}
+                        onChange={(e) => {
+                            curUserData.setUsername(e.target.value);
+                        
+                        }}
                     ></input>
                 </div>
                 <div className="passwordLoginPage">
                     <input
                         className="passwordInputBox"
                         placeholder="Password"
-                        onClick = {(e)=>{curUserData.setPassword(e.target.value)}}
+                        onChange={(e) => {
+                            curUserData.setPassword(e.target.value);
+                        }}
                     ></input>
                 </div>
                 <div className="enterLoginPage">
-                {
-                        login?
-                        <button  className="enterButton" onClick={() =>{enter()}}>
+                    {login ? (
+                        <button
+                            className="enterButton"
+                            onClick={() => {
+                                enter();
+                            }}
+                        >
                             Log in
                         </button>
-                        :
-                        <button  className="enterButton" onClick={() =>{enter()}}>
+                    ) : (
+                        <button
+                            className="enterButton"
+                            onClick={() => {
+                                console.log("WHEN CLICKED\n",curUserData)
+                                enter();
+                            }}
+                        >
                             Sign up
                         </button>
-                    }
+                    )}
                 </div>
             </div>
         </div>

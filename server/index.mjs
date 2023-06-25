@@ -25,6 +25,7 @@ const io = new Server(server, {
     },
 });
 
+let socketUsername = {};
 app.get("/", (req, res) => {
     res.send("running server well and good");
 });
@@ -40,6 +41,7 @@ io.on("connection", function (socket) {
             }
         });
         if (f === 1) {
+            socketUsername[socket.id] = data.username;
             var expData = data;
             expData["rooms"] = {};
             expData["duos"] = {};
@@ -63,6 +65,7 @@ io.on("connection", function (socket) {
         });
     });
     socket.on("login-authenticate" , async (data)=>{
+        socketUsername[socket.id] = data.username;
         getUserData({username:data.username}).then(async res=>{
             var expData=  res[0];
             expData.socketID = data.socketID;
@@ -116,17 +119,18 @@ io.on("connection", function (socket) {
         })
     })
     socket.on("accept-request", async (data)=>{
-        var expData;
+        var expData ;
         await getUserData({username:data[0]}).then(res=>{
             expData = res[0];
         })
+
         expData.sentRequests = expData.sentRequests.filter((e)=>{
             return e!=data[1];            
         })
         expData.recievedRequests = expData.recievedRequests.filter((e)=>{
             return e!=data[1];
         })
-        expData.duos[data[1]] = uuidv1();
+        expData.duos[data[1]] =  uuidv1();
         await addUserData(expData);
         await addRoomData({roomID:expData.duos[data[1]] , messages:[] , participants:data})
 
@@ -135,23 +139,36 @@ io.on("connection", function (socket) {
         await getUserData({username:data[1]}).then(res=>{
             expData = res[0];
         })
+
         expData.sentRequests = expData.sentRequests.filter((e)=>{
             return e!=data[0];            
         })
         expData.recievedRequests = expData.recievedRequests.filter((e)=>{
             return e!=data[0];
         })
-        expData.duos[data[0]] = uuidv1();
+        expData.duos[data[0]] =  uuidv1();
         await addUserData(expData);
         await addRoomData({roomID:expData.duos[data[0]] , messages:[] , participants:data})
 
     })
     socket.on("get-duoList" , async (data)=>{
         var expData = null;
+        var active = Array.from(io.sockets.sockets.keys());
+
         await getUserData({username:data}).then(res=>{
             if (res.length!=0)
                 expData = res[0].duos;
         })
+        if (expData!=null){
+            await Promise.all(
+                Object.keys(expData).map(async e=>{
+                await getUserData({username:e}).then(res=>{
+                    expData[e] = active.includes(res[0].socketID);
+                    io.to(res[0].socketID).emit("friend-connected" , data);
+                })
+                return {name:e , active:expData[e]};
+            }));
+        }
         if (expData!=null){
             socket.emit("recieve-duoList" , expData);
         }
@@ -193,7 +210,19 @@ io.on("connection", function (socket) {
         })
 
     })
-    socket.on("disconnect", function () {
+   
+    socket.on("disconnect",  ()=> {
+        console.log("sending data\n");
+        if (Object.keys(socketUsername).includes(socket.id)){
+            getUserData({username:socketUsername[socket.id]}).then(res=>{
+                Object.keys(res[0].duos).forEach((e)=>{
+                    getUserData({username:e}).then(res2=>{
+                        console.log("sending to:" , res2[0].socketID);
+                        io.to(res2[0].socketID).emit("friend-disconnected" , socketUsername[socket.id]);
+                    })
+                })
+            })
+        }
         console.log("exiting:", socket.id);
     });
 });

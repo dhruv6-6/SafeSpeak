@@ -12,7 +12,7 @@ var socket = io.connect("http://localhost:3001", {
 });
 
 function App() {
-    const [enter, setEnter] = useState(1);
+    const [enter, setEnter] = useState(0);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [privateKey, setPrivateKey] = useState("");
@@ -34,7 +34,7 @@ function App() {
             {enter ? (
                 <>
                     <TopBar />
-                    <ChatArea />
+                    <ChatArea  socket={socket} curUserData={curUserData}/>
                 </>
             ) : (
                 <LoginNSignup socket={socket}  curUserData={curUserData} setEnter={setEnter} />
