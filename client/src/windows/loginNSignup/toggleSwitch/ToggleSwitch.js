@@ -3,13 +3,13 @@ import "./ToggleSwitch.css";
   
 const ToggleSwitch = ({ label , onclick}) => {
   return (
-    <div className="container">
-      <div className="toggle-switch">
-        <input type="checkbox" className="checkbox" 
+    <div className="container_12">
+      <div className="toggle-switch_12">
+        <input type="checkbox" className="checkbox_12"
                name={label} id={label} />
-        <label className="label" htmlFor={label}>
-          <span className="inner" onClick={onclick}/>
-          <span className="switch" onClick={onclick} />
+        <label className="label_12" htmlFor={label}>
+          <span className="inner_12" onClick={onclick}/>
+          <span className="switch_12" onClick={onclick} />
         </label>
       </div>
     </div>

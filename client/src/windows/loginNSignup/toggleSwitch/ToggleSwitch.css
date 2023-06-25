@@ -1,8 +1,8 @@
-.container {
+.container_12 {
     text-align: center;
     background-color: #F9FCF8;
   }
-  .toggle-switch {
+  .toggle-switch_12 {
     position: relative;
     width: 250px;
     display: inline-block;
@@ -10,11 +10,11 @@
     top: 8px;
     background-color: transparent;
   }
-  .checkbox {
+  .checkbox_12 {
     background-color: transparent;
     display: none;
   }
-  .label {
+  .label_12 {
     background-color: transparent;
     display: block;
     overflow: hidden;
@@ -22,15 +22,15 @@
     border: 0 solid  #03373B;
     border-radius: 10px;
   }
-  .inner {
+  .inner_12 {
     background-color: transparent;
     display: block;
     width: 200%;
     margin-left: -100%;
     transition: margin 0.3s ease-in 0s;
   }
-  .inner:before,
-  .inner:after {
+  .inner_12:before,
+  .inner_12:after {
     float: left;
     width: 50%;
     height: 36px;
@@ -40,20 +40,20 @@
     font-weight: bold;
     box-sizing: border-box;
   }
-  .inner:before {
+  .inner_12:before {
     content: "Log in";
     padding-left: 30px;
     background-color:  #03373B;
     color: #F9FCF8;
   }
-  .inner:after {
+  .inner_12:after {
     content: "Sign up";
     padding-right: 30px;
     background-color:  #03373B;
     color: #F9FCF8;
     text-align: right;
   }
-  .switch {
+  .switch_12 {
     background-color: transparent;
     display: block;
     width: 125px;
@@ -67,9 +67,9 @@
     border-radius: 7px;
     transition: all 0.3s ease-in 0s;
   }
-  .checkbox:checked + .label .inner {
+  .checkbox_12:checked + .label_12 .inner_12 {
     margin-left: 0;
   }
-  .checkbox:checked + .label .switch {
+  .checkbox_12:checked + .label_12 .switch_12 {
     right: 0px;
   }
