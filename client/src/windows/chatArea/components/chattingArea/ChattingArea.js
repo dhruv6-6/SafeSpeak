@@ -5,6 +5,7 @@ import icon2 from '../../../../images/userIcons/2.jpg'
 import icon3 from '../../../../images/userIcons/1.jpg'
 import icon4 from '../../../../images/userIcons/2.jpg'
 import send from "../../../../images/icons/send.png"
+import smile from "../../../../images/icons/smile.png"
 
 const ChattingArea  = ({user})=>{
     const iconList = [icon1 , icon2 , icon3 , icon4];
@@ -19,12 +20,16 @@ const ChattingArea  = ({user})=>{
                 </div>
             </div>
             <div className="chatBox">
-                    <div className="messageBoxMain"></div>
+                    <div className="messageBoxMain">
+                    </div>
                     <div className="sendMessageBoxMain">
-                        <input className="messageInput"></input>
-                        <button className="sendButton">
-                            <img src={send} className="sendIcon"></img>
-                        </button>
+                        <div className="sendMessageBoxMain_2">
+                            <img src={smile} className="smileIcon"></img>
+                            <input className="messageInput" placeholder="Type a message"></input>
+                            <button className="sendButton">
+                                <img src={send} className="sendIcon"></img>
+                            </button>
+                        </div>
                     </div>
             </div>
         </div>
