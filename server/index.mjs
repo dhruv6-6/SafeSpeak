@@ -93,7 +93,6 @@ io.on("connection", function (socket) {
         await getUserData({username:data.sender}).then(res=>{
             expData = res[0];
             if (res[0].sentRequests.includes(data.reciever)){
-                console.log(res[0].sentRequests);
                 return ;
             }
         })
@@ -148,7 +147,7 @@ io.on("connection", function (socket) {
             }));
             socket.emit("recieve-recievedRequestList" ,expData);
         })
-    })
+    }) 
     socket.on("accept-request", async (data)=>{
         var expData ;
         await getUserData({username:data[0]}).then(res=>{
@@ -203,6 +202,7 @@ io.on("connection", function (socket) {
             }));
         }
         if (expData!=null){
+            console.log("your duolist are" , expData)
             socket.emit("recieve-duoList" , expData);
         }
         
@@ -222,7 +222,6 @@ io.on("connection", function (socket) {
     })
     socket.on("sending-message",  async (data)=>{
         await getUserData({username:data.sender}).then(res=>{
-            console.log(Array.from(io.sockets.sockets.keys()));
             getRoomData({roomID: res[0]["duos"][data.reciever]}).then(async res2=>{
                 let newD = res2[0];
                 newD["messages"] = [...newD["messages"] , { time:data.time, sender:data.sender , message:data.message[0]}];
@@ -232,7 +231,6 @@ io.on("connection", function (socket) {
         })
         await getUserData({username:data.reciever}).then(res=>{
             
-            console.log("sending to him" , res[0].socketID);
             getRoomData({roomID: res[0].duos[data.sender]}).then(async res2=>{
                 let newD = res2[0];
                 newD["messages"] = [...newD["messages"] , { time:data.time, sender:data.sender , message:data.message[1]}];
@@ -244,12 +242,10 @@ io.on("connection", function (socket) {
 
     })
     socket.on("disconnect",  ()=> {
-        console.log("sending data\n");
         if (Object.keys(socketUsername).includes(socket.id)){
             getUserData({username:socketUsername[socket.id]}).then(res=>{
                 Object.keys(res[0].duos).forEach((e)=>{
                     getUserData({username:e}).then(res2=>{
-                        console.log("sending to:" , res2[0].socketID);
                         io.to(res2[0].socketID).emit("friend-disconnected" , socketUsername[socket.id]);
                     })
                 })

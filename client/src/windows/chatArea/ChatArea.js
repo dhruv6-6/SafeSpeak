@@ -7,11 +7,14 @@ import ChattingArea from './components/chattingArea/ChattingArea';
 const ChatArea = (props)=>{
     const {socket ,curUserData} = props;
     const [currentUser , setCurrentUser] = useState(0);
-    const [users , setUsers] = useState([ {id:0 , name:"initial", img:1 , active: 1 , focus: 1} ]);
+    const [users , setUsers] = useState([]);
     
     const changeUser = (id) => {
+        
         setUsers(users.map((user) => {
             if(user.id===id){
+                console.log("getting deatils for " , [curUserData.username , user.name]);
+                socket.emit("get-chat-details" , [curUserData.username , user.name]);
                 setCurrentUser(id);
                 return({
                     id: user.id , name:user.name , img :user.img, active:user.active , focus:1
@@ -27,14 +30,14 @@ const ChatArea = (props)=>{
 
     useEffect(()=>{
         socket.on("recieve-duoList" ,data=>{
-            let newUserList = []; let cnt =1;
+            let newUserList = []; let cnt = 0 ;
             console.log(data);
             Object.keys(data).forEach((e)=>{
-                newUserList.push({id:cnt ,name:e, img:data[e][1], active:data[e][0] , focus:(cnt===1)});
+                newUserList.push({id:cnt ,name:e, img:data[e][1], active:data[e][0] , focus:(cnt===0)});
                 cnt++;
             })
             if (newUserList.length!=0)
-                setUsers(newUserList);
+            setUsers(newUserList);
         })
         socket.on("friend-disconnected" , data=>{
             console.log(data, "disconnected\n");
@@ -57,17 +60,23 @@ const ChatArea = (props)=>{
             setUsers(newUserList);
         })
         socket.on("user-disconnected" ,()=>{
-            console.log("first trigger\n");
             socket.emit("disconnected" , curUserData.username);
         })
 
+        return ()=>{
+            socket.off("recieve-duoList");
+            socket.off("friend-disconnected");
+            socket.off("friend-connected");
+            socket.off("user-disconnected");
+        }
+
         
-    },[socket , curUserData.username , curUserData.password , users] );
+    },[socket , curUserData.username , curUserData.password , currentUser , users] );
 
     return(
         <div className="chatAreaMainBody">
             <SearchUserArea users = {users} changeUser = {changeUser}/>
-            <ChattingArea user = {users[currentUser]}/>
+            <ChattingArea user = {users[currentUser]} curUserData={curUserData} socket={socket}/>
         </div>
     )
 }
