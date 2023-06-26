@@ -29,7 +29,7 @@ const User = ({area , name , img })=>{
                     </div>
                 </div>
                 <div className="acceptReject_2">
-                    <button className="plusIconButton_2">
+                    <button className="plusIconButton_2" >
                         <img src={plus} className="plusIcon_2"></img>
                     </button>
                 </div>

@@ -41,6 +41,20 @@ const RequestNGroup = (props)=>{
             })
                 setGlobalSearchResult(newGlobalSearchList);
         })
+        socket.on("update-sentRequestList" , data=>{
+            let newSentRequestList = [{id:1 , name:data[0] , img:data[1]}] ; let cnt= 2;
+            sentRequestList.forEach((e)=>{
+                newSentRequestList.push({id:e.id+1, name:e.name, img:e.img});
+            })
+            setSentRequestList(newSentRequestList);
+        })
+        socket.on("update-recievedRequestList" , data=>{
+            let newRecievedRequestList = [{id:1 , name:data[0] , img:data[1]}] ; let cnt= 2;
+            recievedRequestList.forEach((e)=>{
+                newRecievedRequestList.push({id:e.id+1, name:e.name, img:e.img});
+            })
+            setRecievedRequestList(newRecievedRequestList);
+        })
         
     },[socket])
 
@@ -63,7 +77,7 @@ const RequestNGroup = (props)=>{
                         <div className="userLogDisplayAddUser">
                             {
                                 globalSearchResult.map(user => {
-                                    return(<User area="send" name={user.name}  img ={user.img} />);
+                                    return(<User area="send" name={user.name}  img ={user.img}  />);
                                 })
                             }
                         </div>
