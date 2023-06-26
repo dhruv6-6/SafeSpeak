@@ -33,7 +33,7 @@ const ChatArea = (props)=>{
             let newUserList = []; let cnt = 0 ;
             console.log(data);
             Object.keys(data).forEach((e)=>{
-                newUserList.push({id:cnt ,name:e, img:data[e][1], active:data[e][0] , focus:(cnt===0)});
+                newUserList.push({id:cnt ,name:e, img:data[e][1], active:data[e][0] , focus:0});
                 cnt++;
             })
             if (newUserList.length!=0)
