@@ -55,7 +55,7 @@ const User = ({area , name , img })=>{
                     <button className="tickIconButton_1">
                         <img src={tick} className="tickIcon_1"></img>
                     </button>
-                    <button className="cancelIcon_1">
+                    <button className="cancelIconButton_1">
                         <img src={cancel} className="cancelIcon_1"></img>
                     </button>
                 </div>
