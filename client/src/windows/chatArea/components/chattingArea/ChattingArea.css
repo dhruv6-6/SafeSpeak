@@ -11,6 +11,8 @@
     background-color: transparent;
     aspect-ratio: 1/1;
     height: 100%;
+    display: flex;
+    flex-direction: row;
 }
 .profilePictureAboveChat{
     height: 90%;
@@ -100,4 +102,13 @@
     width:100%;
     height: 80%;
     background-color: transparent;
+}
+.nameDisplayChatArea{
+    margin-top: 23px;
+    margin-left: 15px;
+    color: #03373B;
+    font-size: 23px;
+    font-family: Montserrat;
+    font-weight: 500;
+    line-height: 0px;
 }
