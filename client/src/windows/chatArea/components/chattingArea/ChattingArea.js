@@ -44,7 +44,7 @@ const ChattingArea = (props) => {
         }
     }
     useEffect(()=>{
-        socket.on("recieve-chat-details" ,  ({publicKey , messageList})=>{
+        socket.on("recieve-chat-details" ,  async ({publicKey , messageList})=>{
             console.log("I recieved",publicKey , messageList , curUserData.privateKey);
             setCurChatKey(publicKey);
             let newMessageList = [];
@@ -64,20 +64,22 @@ const ChattingArea = (props) => {
             );
             SetchatHistory(newMessageList);
         })
-        socket.on("recieve-single-message" ,  data=>{
+        socket.on("recieve-single-message" , async  data=>{
             console.log(data[0] , user);
             const v = user.name;
             if (data[0].sender===v){
                 data[0].time = new Date(data[0].time);
-                decrypt(curUserData.privateKey , data[0].message , 0).then(res=>{
-                    data[0].message = res;
-                    let newChatHistory = [...chatHistory , data[0]];
-                    SetchatHistory(newChatHistory);
-                });
+                data[0].message = await decrypt(curUserData.privateKey , data[0].message , 0);
+                let newChatHistory = [...chatHistory , data[0]];
+                SetchatHistory(newChatHistory);
 
             }
-
         })
+
+        return ()=>{
+            socket.off("recieve-single-message");
+            socket.off("recieve-chat-details");
+        }
         
     },[socket , user])
     return (
