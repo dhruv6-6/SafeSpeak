@@ -15,7 +15,10 @@ const RequestNGroup = (props)=>{
         socket.emit("send-user-request" , {sender:curUserData.username  , reciever:data});
     }
     const userSearch = (data)=>{
-        socket.emit("search-user-global" , data);
+        socket.emit("search-user-global" , {data:data , username:curUserData.username});
+    }
+    const acceptRequest = (data)=>{
+        socket.emit("accept-request" , [curUserData.username , data]); 
     }
 
 
@@ -37,16 +40,24 @@ const RequestNGroup = (props)=>{
         socket.on("search-user-global-response", data=>{
             let newGlobalSearchList = []; let cnt = 1;
             data.forEach((e)=>{
-                if (e[0]!=curUserData.username)
+                if (!(e[0]==curUserData.username || recievedRequestList.includes(e[0]) || sentRequestList.includes(e[0]))){
+                    console.log(e[0] , recievedRequestList , sentRequestList , curUserData.username);
                     newGlobalSearchList.push({id:cnt, name:e[0] , img:e[1] }); cnt++;
+                }
             })
-                setGlobalSearchResult(newGlobalSearchList);
+            setGlobalSearchResult(newGlobalSearchList);
         })
         socket.on("update-sentRequestList" , data=>{
             let newSentRequestList = [{id:1 , name:data[0] , img:data[1]}] ; let cnt= 2;
             sentRequestList.forEach((e)=>{
                 newSentRequestList.push({id:e.id+1, name:e.name, img:e.img});
             })
+
+            let newGlobalSearchList = [];
+            globalSearchResult.filter(e=>{
+                return (!sentRequestList.includes(e.name))
+            })
+            setGlobalSearchResult(newGlobalSearchList);
             setSentRequestList(newSentRequestList);
         })
         socket.on("update-recievedRequestList" , data=>{
@@ -54,6 +65,11 @@ const RequestNGroup = (props)=>{
             recievedRequestList.forEach((e)=>{
                 newRecievedRequestList.push({id:e.id+1, name:e.name, img:e.img});
             })
+            let newGlobalSearchList = [];
+            globalSearchResult.filter(e=>{
+                return (!recievedRequestList.includes(e.name))
+            })
+            setGlobalSearchResult(newGlobalSearchList);
             setRecievedRequestList(newRecievedRequestList);
         })
         
@@ -70,7 +86,7 @@ const RequestNGroup = (props)=>{
                         <div className="searchBarAddUser">
                             <div className="searchContainer">
                                 <img src={search} className="searchIconAddUser"></img>
-                                <input className="searchUserInputBoxAddUser" placeholder="Type Username" onChange={(e)=>{
+                                <input className="searchUserInputBoxAddUser" placeholder="Type Username" id="globalUserSearch" onChange={(e)=>{
                                     userSearch(e.target.value);
                                 }}></input>
                             </div>
@@ -94,7 +110,7 @@ const RequestNGroup = (props)=>{
                             <div className="recievedRequestArea">
                                 {
                                     recievedRequestList.map(user => {
-                                        return(<User area="recieve" name={user.name}  img ={user.img} />);
+                                        return(<User area="recieve" name={user.name}  img ={user.img} acceptRequest={acceptRequest}  />);
                                     })
                                 }
                             </div>
@@ -106,7 +122,7 @@ const RequestNGroup = (props)=>{
                             <div className="recievedRequestArea">
                                 {
                                     sentRequestList.map(user => {
-                                        return(<User area="" name={user.name}  img ={user.img} />);
+                                        return(<User area="" name={user.name}  img ={user.img}  />);
                                     })
                                 }
                             </div>
