@@ -51,7 +51,12 @@ const ChattingArea  = ({user})=>{
             </div>
             <div className="chatBox">
                     <div className="messageBoxMain">
-                        <Messages messages={chatHistory} me={user.name}/>
+                        {
+                            user && 
+                            (
+                                <Messages messages={chatHistory} me={user.name}/>
+                            )
+                        }
                     </div>
                     <div className="sendMessageBoxMain">
                         <div className="sendMessageBoxMain_2">
