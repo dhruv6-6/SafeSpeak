@@ -101,7 +101,6 @@ const LoginNSignup = (props) => {
                             <ToggleSwitch label="Login" onclick={clicking} />
                         </div>
                     </div>
-                    <form>
                     <div className="userNameLoginPage">
                         <input
                             className="userNameInputBox"
@@ -125,7 +124,7 @@ const LoginNSignup = (props) => {
                         {login ? (
                             <button
                                 className="enterButton"
-                                
+
                                 onClick={() => {
                                     enter();
                                 }}
@@ -144,7 +143,6 @@ const LoginNSignup = (props) => {
                             </button>
                         )}
                     </div>
-                    </form>
             </div>
         </div>
     );
