@@ -11,7 +11,8 @@ const RequestNGroup = (props)=>{
     const [sentRequestList , setSentRequestList] = useState([]);
 
     const sendRequest = (data)=>{
-        socket.emit("send-user-request" , [curUserData.username  , data]);
+        console.log("sending request to:" , data);
+        socket.emit("send-user-request" , {sender:curUserData.username  , reciever:data});
     }
     const userSearch = (data)=>{
         socket.emit("search-user-global" , data);
@@ -77,7 +78,7 @@ const RequestNGroup = (props)=>{
                         <div className="userLogDisplayAddUser">
                             {
                                 globalSearchResult.map(user => {
-                                    return(<User area="send" name={user.name}  img ={user.img}  />);
+                                    return(<User area="send" name={user.name}  img ={user.img} sendRequest={sendRequest} />);
                                 })
                             }
                         </div>
