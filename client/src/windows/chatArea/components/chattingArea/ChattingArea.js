@@ -11,11 +11,13 @@ const ChattingArea  = ({user})=>{
     const iconList = [icon1 , icon2 , icon3 , icon4];
 
     return(
-        
+
         <div className="chattingAreaMainBody">
             <div className="userInfoAndIcons">
                 <div className="userProfilePictureAboveChat">
-                    <img src={iconList[user.img]} className="profilePictureAboveChat"></img>
+                    {
+                        user && <img src={iconList[user.img]} className="profilePictureAboveChat"></img>
+                    }
                 </div>
                 <div className="chatAreaIcons">
                 </div>
