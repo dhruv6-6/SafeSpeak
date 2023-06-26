@@ -91,8 +91,8 @@ io.on("connection", function (socket) {
         })
         await getUserData({username:data.reciever}).then(res=>{
             avatar = res[0].avatar;
+            io.to(expData.socketID).emit("update-sentRequestList" , [data.sender , avatar]);
         })
-        io.to(expData.socketID).emit("update-sentRequestList" , [data.reciever , avatar]);
         if (("sentRequests" in expData)===false)
             expData["sentRequests"] = [];
         expData["sentRequests"] = [ data.reciever  , ...expData["sentRequests"] ];
@@ -104,8 +104,8 @@ io.on("connection", function (socket) {
         })
         await getUserData({username:data.sender}).then(res=>{
             avatar = res[0].avatar;
+            io.to(expData.socketID).emit("update-recievedRequestList" , [data.reciever , avatar]);
         })
-        io.to(expData.socketID).emit("update-recievedRequestList" , [data.reciever , avatar]);
         if (("recievedRequests" in expData)===false)
             expData["recievedRequests"] = [];
         
