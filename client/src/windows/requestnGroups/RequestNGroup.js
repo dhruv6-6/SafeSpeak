@@ -10,7 +10,6 @@ const RequestNGroup = (props)=>{
     const [recievedRequestList , setRecievedRequestList] = useState([]);
     const [sentRequestList , setSentRequestList] = useState([]);
 
-
     const sendRequest = (data)=>{
         socket.emit("send-user-request" , [curUserData.username  , data]);
     }
