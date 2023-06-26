@@ -148,7 +148,7 @@ io.on("connection", function (socket) {
             }));
             socket.emit("recieve-recievedRequestList" ,expData);
         })
-    })
+    }) 
     socket.on("accept-request", async (data)=>{
         var expData ;
         await getUserData({username:data[0]}).then(res=>{
