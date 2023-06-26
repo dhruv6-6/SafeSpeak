@@ -4,6 +4,7 @@ import icon1 from '../../../../images/userIcons/1.jpg'
 import icon2 from '../../../../images/userIcons/2.jpg'
 import icon3 from '../../../../images/userIcons/1.jpg'
 import icon4 from '../../../../images/userIcons/2.jpg'
+import send from "../../../../images/icons/send.png"
 
 const ChattingArea  = ({user})=>{
     const iconList = [icon1 , icon2 , icon3 , icon4];
@@ -15,10 +16,17 @@ const ChattingArea  = ({user})=>{
                     <img src={iconList[user.img]} className="profilePictureAboveChat"></img>
                 </div>
                 <div className="chatAreaIcons">
-
                 </div>
             </div>
-            <div className="chatBox"></div>
+            <div className="chatBox">
+                    <div className="messageBoxMain"></div>
+                    <div className="sendMessageBoxMain">
+                        <input className="messageInput"></input>
+                        <button className="sendButton">
+                            <img src={send} className="sendIcon"></img>
+                        </button>
+                    </div>
+            </div>
         </div>
     )
 }

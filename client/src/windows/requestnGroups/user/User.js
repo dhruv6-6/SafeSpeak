@@ -29,7 +29,9 @@ const User = ({area , name , img })=>{
                     </div>
                 </div>
                 <div className="acceptReject_2">
-                    <img src={plus} className="plusIcon_2"></img>
+                    <button className="plusIconButton_2">
+                        <img src={plus} className="plusIcon_2"></img>
+                    </button>
                 </div>
             </div>
             :
@@ -49,8 +51,12 @@ const User = ({area , name , img })=>{
                     </div>
                 </div>
                 <div className="acceptReject_1">
-                    <img src={tick} className="tickIcon_1"></img>
-                    <img src={cancel} className="cancelIcon_1"></img>
+                    <button className="tickIconButton_1">
+                        <img src={tick} className="tickIcon_1"></img>
+                    </button>
+                    <button className="cancelIcon_1">
+                        <img src={cancel} className="cancelIcon_1"></img>
+                    </button>
                 </div>
             </div>
             :
