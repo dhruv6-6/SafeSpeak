@@ -79,7 +79,6 @@ const ChattingArea = (props) => {
             socket.off("recieve-single-message");
             socket.off("recieve-chat-details");
         }
-        
     },[socket , user , chatHistory])
     return (
         <div className="chattingAreaMainBody">

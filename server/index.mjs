@@ -154,9 +154,9 @@ io.on("connection", function (socket) {
         })
     }) 
     socket.on("accept-request", async (data)=>{
-        var expData ;
+        var expData , avatar ;
         await getUserData({username:data[0]}).then(res=>{
-            expData = res[0];
+            expData = res[0]; avatar = res[0].avatar;
         })
 
         expData.sentRequests = expData.sentRequests.filter((e)=>{
@@ -183,6 +183,8 @@ io.on("connection", function (socket) {
         })
         expData.duos[data[0]] =  uuidv1();
         await addUserData(expData);
+        io.to(expData.socketID).emit("removeSingle-sentRequestList" , data[0]);
+        io.to(expData.socketID).emit("addSingle-duoList" , {name:data[0] ,  img:avatar});
         await addRoomData({roomID:expData.duos[data[0]] , messages:[] , participants:data})
 
     })

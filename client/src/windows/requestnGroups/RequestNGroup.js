@@ -75,6 +75,14 @@ const RequestNGroup = (props) => {
             setGlobalSearchResult(newGlobalSearchList);
         });
 
+
+        socket.on("removeSingle-sentRequestList",data=>{
+            let newSentRequestList = sentRequestList.filter((e)=>{
+                return (e.name!=data);
+            });
+            setSentRequestList(newSentRequestList);
+        });
+
         return () => {
             socket.off("trigger");
             socket.off("recieve-sentRequestList");
