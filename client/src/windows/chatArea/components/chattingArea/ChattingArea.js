@@ -8,6 +8,7 @@ import send from "../../../../images/icons/send.png"
 import smile from "../../../../images/icons/smile.png"
 import Messages from "../messages/Messages";
 
+
 const ChattingArea  = ({user})=>{
     const iconList = [icon1 , icon2 , icon3 , icon4];
     const [chatHistory , SetchatHistory] = useState( [{time:new Date() , sender:"initial" , message:"hodwyudgwugdyuwgdyuwgdgwydgdnuwbwuidbwdbuiuygyw are you"}
