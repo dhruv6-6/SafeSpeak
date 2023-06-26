@@ -81,14 +81,27 @@
     margin-right: 30px;
 }
 .tickIcon_1{
-    margin-top: 5px;
-    height: 65%;
+    height: 100%;
     background-color: transparent;
-    margin-right: 10px;
+}
+.tickIconButton_1{
+    margin-top: 10px;
+    background-color: transparent;
+    height:65%;
+    border-radius: 20px;
+    border-style: none;
 }
 .cancelIcon_1{
+    height: 100%;
     background-color: transparent;
-    height: 65%;
+}
+.cancelIconButton_1{
+    margin-left: 5px;
+    margin-top: 10px;
+    background-color: transparent;
+    height:65%;
+    border-radius: 20px;
+    border-style: none;
 }
 .accept{
     background-color: transparent;
