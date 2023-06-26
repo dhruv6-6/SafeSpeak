@@ -10,7 +10,8 @@ let schema = new mongoose.Schema({
     sentRequests: [],
     rooms: Object,
     duos: Object,
-    socketID: String
+    socketID: String,
+    avatar: Number
 
 });
 const userSchema = mongoose.model('user' , schema, 'user');

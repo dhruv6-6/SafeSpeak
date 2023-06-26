@@ -45,8 +45,8 @@ io.on("connection", function (socket) {
             var expData = data;
             expData["rooms"] = {};
             expData["duos"] = {};
+            expData["avatar"] = Math.floor(Math.random() * 2);
             await addUserData(expData);
-
             socket.emit("sign-up-complete", data);
         }
     });
@@ -78,7 +78,7 @@ io.on("connection", function (socket) {
         await getUserData({}).then(res=>{
             res.forEach((e)=>{
                 if (e.username.length >= data.length && e.username.substring(0 , data.length)==data){
-                    expData.push( e.username);
+                    expData.push([e.username , e.avatar]);
                 }
             })
         })
@@ -109,13 +109,29 @@ io.on("connection", function (socket) {
 
     })
     socket.on("get-sentRequestList" , async (data)=>{
-        getUserData({username:data}).then(res=>{
-            socket.emit("recieve-sentRequestList" , res[0].sentRequests);
+        let expData = [];
+        getUserData({username:data}).then(async res=>{
+            await Promise.all(
+                res[0].sentRequests.map(async e=>{
+                await getUserData({username:e}).then(res2=>{
+                    expData.push([e , res2[0].avatar]);
+                })
+                return {};
+            }));
+            socket.emit("recieve-recievedRequestList" ,expData);
         })
     })
     socket.on("get-recievedRequestList" , async (data)=>{
-        getUserData({username:data}).then(res=>{
-            socket.emit("recieve-recievedRequestList" , res[0].recievedRequests);
+        let expData = [];
+        getUserData({username:data}).then(async res=>{
+            await Promise.all(
+                res[0].recievedRequests.map(async e=>{
+                await getUserData({username:e}).then(res2=>{
+                    expData.push([e , res2[0].avatar]);
+                })
+                return {};
+            }));
+            socket.emit("recieve-recievedRequestList" ,expData);
         })
     })
     socket.on("accept-request", async (data)=>{
@@ -163,10 +179,10 @@ io.on("connection", function (socket) {
             await Promise.all(
                 Object.keys(expData).map(async e=>{
                 await getUserData({username:e}).then(res=>{
-                    expData[e] = active.includes(res[0].socketID);
+                    expData[e] = [active.includes(res[0].socketID) , res[0].avatar];  
                     io.to(res[0].socketID).emit("friend-connected" , data);
                 })
-                return {name:e , active:expData[e]};
+                return {name:e ,img:expData[e][1] , active:expData[e][0]};
             }));
         }
         if (expData!=null){

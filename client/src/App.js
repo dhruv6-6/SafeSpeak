@@ -45,15 +45,15 @@ function App() {
         <div className="mainBody">
             {enter ? (
                 <>
-                    <TopBar onclick={reqOnClick} state="chat"/>
+                    <TopBar  socket={socket} curUserData={curUserData}  onclick={reqOnClick} state="chat"/>
                     <ChatArea  socket={socket} curUserData={curUserData} />
                 </>
             ) : (
                 requests
                 ?
                 <>
-                    <TopBar onclick={enterOnClick} state="req"/>
-                    <RequestNGroup />
+                    <TopBar socket={socket} curUserData={curUserData} onclick={enterOnClick} state="req"/>
+                    <RequestNGroup socket={socket} curUserData={curUserData}  />
                 </>
                 :
                 <LoginNSignup socket={socket}  curUserData={curUserData} setEnter={setEnter} />

@@ -2,7 +2,8 @@ import {React , UseState, useState} from "react";
 import './TopBar.css'
 import TopBarIcons from "./TopBarIcons";
 
-const TopBar = ({onclick ,state})=>{
+const TopBar = (props)=>{
+    const {socket, curUserData , onclick , state } = props;
     const [chat , setChat] = useState(1);
     const [friendsAndGroups , setFriendsAndGroups] = useState(0);
 
@@ -14,6 +15,10 @@ const TopBar = ({onclick ,state})=>{
         setChat(1);
     }
     const friendsAndGroupsOnClick= ()=>{
+        socket.emit("get-sentRequestList" , curUserData.username);
+        socket.emit("get-recievedRequestList" , curUserData.username);
+        socket.emit("search-user-global" , "");
+
         if(state==="chat"){
             onclick();
         }

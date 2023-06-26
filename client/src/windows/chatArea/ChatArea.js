@@ -31,10 +31,11 @@ const ChatArea = (props)=>{
             let newUserList = []; let cnt =1;
             console.log(data);
             Object.keys(data).forEach((e)=>{
-                newUserList.push({id:cnt ,name:e, img:Math.floor(Math.random() * 2), active:data[e] , focus:(cnt===1)});
+                newUserList.push({id:cnt ,name:e, img:data[e][1], active:data[0][0] , focus:(cnt===1)});
                 cnt++;
             })
-            setUsers(newUserList);
+            if (newUserList.length!=0)
+                setUsers(newUserList);
         })
         socket.on("friend-disconnected" , data=>{
             console.log(data, "disconnected\n");
