@@ -125,6 +125,7 @@ const LoginNSignup = (props) => {
                         {login ? (
                             <button
                                 className="enterButton"
+                                
                                 onClick={() => {
                                     enter();
                                 }}
