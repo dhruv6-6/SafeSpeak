@@ -15,7 +15,9 @@ const ChattingArea  = ({user})=>{
         <div className="chattingAreaMainBody">
             <div className="userInfoAndIcons">
                 <div className="userProfilePictureAboveChat">
-                    <img src={iconList[user.img]} className="profilePictureAboveChat"></img>
+                    {
+                        user && <img src={iconList[user.img]} className="profilePictureAboveChat"></img>
+                    }
                 </div>
                 <div className="chatAreaIcons">
                 </div>
