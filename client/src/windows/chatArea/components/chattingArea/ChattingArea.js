@@ -21,7 +21,6 @@ const ChattingArea  = ({user})=>{
             </div>
             <div className="chatBox">
                     <div className="messageBoxMain">
-                        <Message />
                     </div>
                     <div className="sendMessageBoxMain">
                         <div className="sendMessageBoxMain_2">
