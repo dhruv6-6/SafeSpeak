@@ -10,11 +10,18 @@ const RequestNGroup = (props) => {
     const [recievedRequestList, setRecievedRequestList] = useState([]);
     const [sentRequestList, setSentRequestList] = useState([]);
 
-    const sendRequest = (data) => {
-        console.log("sending request to:", data);
+    const sendRequest = (name , img) => {
+        setSentRequestList([{id:sentRequestList.length , name:name , img:img} , ...sentRequestList]);
+        let newGlobalSearchList = [];
+        globalSearchResult.forEach((e)=>{
+            if (e.name !== name){
+                newGlobalSearchList.push(e);
+            }
+        })
+        setGlobalSearchResult(newGlobalSearchList);
         socket.emit("send-user-request", {
             sender: curUserData.username,
-            reciever: data,
+            reciever: name,
         });
     };
     const userSearch = (data) => {
@@ -24,6 +31,13 @@ const RequestNGroup = (props) => {
         });
     };
     const acceptRequest = (data) => {
+        let newRecievedRequestList = [];
+        recievedRequestList.forEach((e)=>{
+            if (e.name !== data){
+                newRecievedRequestList.push(e);
+            }
+        })
+        setRecievedRequestList(newRecievedRequestList);
         socket.emit("accept-request", [curUserData.username, data]);
     };
 
@@ -38,8 +52,9 @@ const RequestNGroup = (props) => {
             setSentRequestList(newSentRequestList);
         });
         socket.on("recieve-recievedRequestList", (data) => {
+            console.log(data);
             let newRecievedRequestList = [];
-            let cnt = 1;
+            let cnt = 0;
             data.forEach((e) => {
                 newRecievedRequestList.push({ id: cnt, name: e[0], img: e[1] });
                 cnt++;
@@ -59,11 +74,14 @@ const RequestNGroup = (props) => {
             });
             setGlobalSearchResult(newGlobalSearchList);
         });
-        // socket.on("trigger", (data) => {
-        //     data.forEach((e) => {
-        //         socket.emit(e, curUserData.username);
-        //     });
-        // });
+
+
+        socket.on("removeSingle-sentRequestList",data=>{
+            let newSentRequestList = sentRequestList.filter((e)=>{
+                return (e.name!=data);
+            });
+            setSentRequestList(newSentRequestList);
+        });
 
         return () => {
             socket.off("trigger");

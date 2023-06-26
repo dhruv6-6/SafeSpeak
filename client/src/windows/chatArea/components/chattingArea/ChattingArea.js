@@ -8,7 +8,7 @@ import send from "../../../../images/icons/send.png";
 import smile from "../../../../images/icons/smile.png";
 import Messages from "../messages/Messages";
 import {
-    decrypt, encrypt,
+    decrypt, encrypt
 } from "../../../../helper.js";
 
 const ChattingArea = (props) => {
@@ -20,7 +20,6 @@ const ChattingArea = (props) => {
         if (user!="") {
             encrypt(curChatKey, data).then((encryptedMessage1) => {
                 encrypt(curUserData.publicKey, data).then(
-                    
                     (encryptedMessage0) => {
                         let tt = new Date();
                         let messageData = {
@@ -80,8 +79,7 @@ const ChattingArea = (props) => {
             socket.off("recieve-single-message");
             socket.off("recieve-chat-details");
         }
-        
-    },[socket , user])
+    },[socket , user , chatHistory])
     return (
         <div className="chattingAreaMainBody">
             <div className="userInfoAndIcons">

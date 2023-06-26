@@ -37,7 +37,7 @@ const ChatArea = (props)=>{
                 cnt++;
             })
             if (newUserList.length!=0)
-            setUsers(newUserList);
+            setUsers(newUserList);  
         })
         socket.on("friend-disconnected" , data=>{
             console.log(data, "disconnected\n");
@@ -61,6 +61,9 @@ const ChatArea = (props)=>{
         })
         socket.on("user-disconnected" ,()=>{
             socket.emit("disconnected" , curUserData.username);
+        })
+        socket.on("addSingle-duoList" , data=>{
+            setUsers(...users , data);
         })
 
         return ()=>{

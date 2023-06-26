@@ -99,7 +99,6 @@ io.on("connection", function (socket) {
         })
         await getUserData({username:data.reciever}).then(res=>{
             avatar = res[0].avatar;
-            io.to(expData.socketID).emit("trigger" , ["get-sentRequestList"]);
         })
         if (("sentRequests" in expData)===false)
             expData["sentRequests"] = [];
@@ -110,18 +109,24 @@ io.on("connection", function (socket) {
         await getUserData({username:data.reciever}).then(res=>{
             expData = res[0];
         })
-        await getUserData({username:data.sender}).then(res=>{
-            avatar = res[0].avatar;
-            io.to(expData.socketID).emit("trigger" , ["get-sentRequestList" ]);
-        })
+        
         if (("recievedRequests" in expData)===false)
             expData["recievedRequests"] = [];
-        
-        
+            
         expData["recievedRequests"] = [ data.sender  , ...expData["recievedRequests"] ];
-        await addUserData(expData);
-    
+        let otherUser = [];
+        await Promise.all(
 
+            expData["recievedRequests"].map(async (e)=>{
+                await getUserData({username:e}).then(dr=>{
+                    otherUser.push([e,dr[0].avatar]);
+                })
+                return {};
+            })
+        );
+        
+        io.to(expData.socketID).emit("recieve-recievedRequestList" , otherUser);
+        await addUserData(expData);
     })
     socket.on("get-sentRequestList" , async (data)=>{
         let expData = [];
@@ -150,9 +155,9 @@ io.on("connection", function (socket) {
         })
     }) 
     socket.on("accept-request", async (data)=>{
-        var expData ;
+        var expData , avatar ;
         await getUserData({username:data[0]}).then(res=>{
-            expData = res[0];
+            expData = res[0]; avatar = res[0].avatar;
         })
 
         expData.sentRequests = expData.sentRequests.filter((e)=>{
@@ -163,7 +168,6 @@ io.on("connection", function (socket) {
         })
         expData.duos[data[1]] =  uuidv1();
         await addUserData(expData);
-        // io.to(expData.socketID).emit("trigger" , ["get-sentRequestList" , "get-recievedRequestList"]);
         await addRoomData({roomID:expData.duos[data[1]] , messages:[] , participants:data})
 
 
@@ -180,7 +184,8 @@ io.on("connection", function (socket) {
         })
         expData.duos[data[0]] =  uuidv1();
         await addUserData(expData);
-        // io.to(expData.socketID).emit("trigger" , ["get-sentRequestList" , "get-recievedRequestList"]);
+        io.to(expData.socketID).emit("removeSingle-sentRequestList" , data[0]);
+        io.to(expData.socketID).emit("addSingle-duoList" , {name:data[0] ,  img:avatar});
         await addRoomData({roomID:expData.duos[data[0]] , messages:[] , participants:data})
 
     })

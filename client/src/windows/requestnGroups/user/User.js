@@ -30,7 +30,7 @@ const User = (props)=>{
                     </div>
                 </div>
                 <div className="acceptReject_2">
-                    <button className="plusIconButton_2" onClick={(e)=>{sendRequest(name)}} >
+                    <button className="plusIconButton_2" onClick={(e)=>{sendRequest(name , img)}} >
                         <img src={plus} className="plusIcon_2"></img>
                     </button>
                 </div>
