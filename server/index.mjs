@@ -75,14 +75,12 @@ io.on("connection", function (socket) {
     })
     socket.on("search-user-global" , async (d)=>{
         var expData = [ ];
-        console.log(d);
         const {data , username} = d;
-        console.log(data , username);
         await getUserData({username:username}).then(async res2=>{
 
             await getUserData({}).then(res=>{
                 res.forEach((e)=>{
-                    if (e.username.length >= data.length && e.username.substring(0 , data.length)==data && !(Object.keys(res2[0].duos)).includes(e.username)){
+                    if (e.username!=username && e.username.length >= data.length && e.username.substring(0 , data.length)==data && !(Object.keys(res2[0].duos)).includes(e.username)  && !(res2[0].recievedRequests).includes(e.username) && !(res2[0].sentRequests).includes(e.username)){
                         expData.push([e.username , e.avatar]);
                     }
                 })
@@ -94,10 +92,14 @@ io.on("connection", function (socket) {
         var expData , avatar;
         await getUserData({username:data.sender}).then(res=>{
             expData = res[0];
+            if (res[0].sentRequests.includes(data.reciever)){
+                console.log(res[0].sentRequests);
+                return ;
+            }
         })
         await getUserData({username:data.reciever}).then(res=>{
             avatar = res[0].avatar;
-            io.to(expData.socketID).emit("update-sentRequestList" , [data.sender , avatar]);
+            io.to(expData.socketID).emit("trigger" , ["get-sentRequestList"]);
         })
         if (("sentRequests" in expData)===false)
             expData["sentRequests"] = [];
@@ -110,7 +112,7 @@ io.on("connection", function (socket) {
         })
         await getUserData({username:data.sender}).then(res=>{
             avatar = res[0].avatar;
-            io.to(expData.socketID).emit("update-recievedRequestList" , [data.reciever , avatar]);
+            io.to(expData.socketID).emit("trigger" , ["get-sentRequestList" ]);
         })
         if (("recievedRequests" in expData)===false)
             expData["recievedRequests"] = [];
@@ -131,7 +133,7 @@ io.on("connection", function (socket) {
                 })
                 return {};
             }));
-            socket.emit("recieve-recievedRequestList" ,expData);
+            socket.emit("recieve-sentRequestList" ,expData);
         })
     })
     socket.on("get-recievedRequestList" , async (data)=>{
@@ -161,6 +163,7 @@ io.on("connection", function (socket) {
         })
         expData.duos[data[1]] =  uuidv1();
         await addUserData(expData);
+        // io.to(expData.socketID).emit("trigger" , ["get-sentRequestList" , "get-recievedRequestList"]);
         await addRoomData({roomID:expData.duos[data[1]] , messages:[] , participants:data})
 
 
@@ -177,6 +180,7 @@ io.on("connection", function (socket) {
         })
         expData.duos[data[0]] =  uuidv1();
         await addUserData(expData);
+        // io.to(expData.socketID).emit("trigger" , ["get-sentRequestList" , "get-recievedRequestList"]);
         await addRoomData({roomID:expData.duos[data[0]] , messages:[] , participants:data})
 
     })
