@@ -64,16 +64,17 @@
     width: 100%;
     border-radius: 20px;
     background-color: #D4E4D3;
+    display: inline-block;
     box-shadow: 3px 3px 10px 0px rgba(0, 0, 0, 0.28) inset;
     border-style: none;
-}
-.searchUserInputBoxAddUser::placeholder{
     padding-left: 50px;
     color: #03373B;
     font-size: 15px;
     font-family: Montserrat;
     font-weight: 500;
-    line-height: 0px;
+}
+.searchUserInputBoxAddUser:focus{
+    outline: none;
 }
 
 .userLogDisplayAddUser{
