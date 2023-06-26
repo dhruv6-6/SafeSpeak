@@ -6,7 +6,7 @@ import ChattingArea from './components/chattingArea/ChattingArea';
 
 const ChatArea = (props)=>{
     const {socket ,curUserData} = props;
-    const [currentUser , setCurrentUser] = useState(0);
+    const [currentUser , setCurrentUser] = useState(-1);
     const [users , setUsers] = useState([]);
     
     const changeUser = (id) => {
