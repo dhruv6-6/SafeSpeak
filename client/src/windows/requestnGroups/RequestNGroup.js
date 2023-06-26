@@ -1,19 +1,49 @@
-import {React , useState} from "react";
+import {React , useState , useEffect} from "react";
 import "./RequestNGroup.css"
 import ToggleSwitch from "./toggleSwitch/ToggleSwitch";
 import User from "./user/User";
 import search from "../../images/icons/search.png"
 
-const RequestNGroup = ()=>{
-    const [users , setUsers] = useState([{ id:0 ,name:"Armaan"  ,img : 0 }  
-                                        ,{ id:1 ,name:"Dhruv"   ,img : 1 } 
-                                        ,{ id:2 ,name:"Ananya"  ,img : 1 }
-                                        ,{ id:3 ,name:"Sarthak" ,img : 2 }
-                                        ,{ id:4 ,name:"Sarthak" ,img : 3 }
-                                        ,{ id:5 ,name:"Sarthak" ,img : 1 }
-                                        ,{ id:6 ,name:"Sarthak" ,img : 3 }
-                                        ,{ id:7 ,name:"Sarthak" ,img : 1 }
-                                        ,{ id:8 ,name:"Sarthak" ,img : 2 }]);
+const RequestNGroup = (props)=>{
+    const {socket , curUserData} = props;
+    const [globalSearchResult , setGlobalSearchResult] = useState([])  
+    const [recievedRequestList , setRecievedRequestList] = useState([]);
+    const [sentRequestList , setSentRequestList] = useState([]);
+
+
+    const sendRequest = (data)=>{
+        socket.emit("send-user-request" , [curUserData.username  , data]);
+    }
+    const userSearch = (data)=>{
+        socket.emit("search-user-global" , data);
+    }
+
+
+    useEffect(()=>{
+        socket.on("recieve-sentRequestList" , data=>{
+            let newSentRequestList = []; let cnt = 1;
+            data.forEach((e)=>{
+                newSentRequestList.push({id:cnt, name:e[0] , img:e[1] }); cnt++;
+            })
+                setSentRequestList(newSentRequestList);
+        })
+        socket.on("recieve-recievedRequestList" , data=>{
+            let newRecievedRequestList = []; let cnt = 1;
+            data.forEach((e)=>{
+                newRecievedRequestList.push({id:cnt, name:e[0] , img:e[1] }); cnt++;
+            })
+                setRecievedRequestList(newRecievedRequestList);
+        })
+        socket.on("search-user-global-response", data=>{
+            let newGlobalSearchList = []; let cnt = 1;
+            data.forEach((e)=>{
+                if (e[0]!=curUserData.username)
+                    newGlobalSearchList.push({id:cnt, name:e[0] , img:e[1] }); cnt++;
+            })
+                setGlobalSearchResult(newGlobalSearchList);
+        })
+        
+    },[socket])
 
     return(
         <div className="requestAreaMainBody">
@@ -26,12 +56,14 @@ const RequestNGroup = ()=>{
                         <div className="searchBarAddUser">
                             <div className="searchContainer">
                                 <img src={search} className="searchIconAddUser"></img>
-                                <input className="searchUserInputBoxAddUser" placeholder="Type Username"></input>
+                                <input className="searchUserInputBoxAddUser" placeholder="Type Username" onChange={(e)=>{
+                                    userSearch(e.target.value);
+                                }}></input>
                             </div>
                         </div>
                         <div className="userLogDisplayAddUser">
                             {
-                                users.map(user => {
+                                globalSearchResult.map(user => {
                                     return(<User area="send" name={user.name}  img ={user.img} />);
                                 })
                             }
@@ -47,7 +79,7 @@ const RequestNGroup = ()=>{
                             </div>
                             <div className="recievedRequestArea">
                                 {
-                                    users.map(user => {
+                                    recievedRequestList.map(user => {
                                         return(<User area="recieve" name={user.name}  img ={user.img} />);
                                     })
                                 }
@@ -59,7 +91,7 @@ const RequestNGroup = ()=>{
                             </div>
                             <div className="recievedRequestArea">
                                 {
-                                    users.map(user => {
+                                    sentRequestList.map(user => {
                                         return(<User area="" name={user.name}  img ={user.img} />);
                                     })
                                 }

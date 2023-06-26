@@ -32,7 +32,7 @@ const LoginNSignup = (props) => {
                     ).then((encryptedPrivateKey) => {
                         encrypt(publicKey, curUserData.password).then(
                             (encryptedPassword) => {
-                            
+
                                 socket.emit("sign-up-init", {
                                     username: curUserData.username,
                                     publicKey,
