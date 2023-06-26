@@ -7,8 +7,7 @@ import ChattingArea from './components/chattingArea/ChattingArea';
 const ChatArea = (props)=>{
     const {socket ,curUserData} = props;
     const [currentUser , setCurrentUser] = useState(0);
-    const [users , setUsers] = useState([{id:0 ,name:"initial" ,img : 0  ,active:1 ,focus : 0}  
-                    ]);
+    const [users , setUsers] = useState([{id:0 ,name:"initial" ,img : 0  ,active:1 ,focus : 0}  ]);
     
     const changeUser = (id) => {
         setUsers(users.map((user) => {
@@ -31,7 +30,7 @@ const ChatArea = (props)=>{
             let newUserList = []; let cnt =1;
             console.log(data);
             Object.keys(data).forEach((e)=>{
-                newUserList.push({id:cnt ,name:e, img:data[e][1], active:data[0][0] , focus:(cnt===1)});
+                newUserList.push({id:cnt ,name:e, img:data[e][1], active:data[e][0] , focus:(cnt===1)});
                 cnt++;
             })
             if (newUserList.length!=0)

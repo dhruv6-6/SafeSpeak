@@ -8,6 +8,7 @@ const TopBar = (props)=>{
     const [friendsAndGroups , setFriendsAndGroups] = useState(0);
 
     const chatOnClick= ()=>{
+        socket.emit("get-duoList" , curUserData.username);
         if(state==="req"){
             onclick();
         }
@@ -17,8 +18,7 @@ const TopBar = (props)=>{
     const friendsAndGroupsOnClick= ()=>{
         socket.emit("get-sentRequestList" , curUserData.username);
         socket.emit("get-recievedRequestList" , curUserData.username);
-        socket.emit("search-user-global" , "");
-
+        socket.emit("search-user-global" , {username:curUserData.username , data:""});
         if(state==="chat"){
             onclick();
         }

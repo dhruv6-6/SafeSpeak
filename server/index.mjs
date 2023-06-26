@@ -73,13 +73,19 @@ io.on("connection", function (socket) {
         })
         socket.emit("login-success" ,data);
     })
-    socket.on("search-user-global" , async (data)=>{
+    socket.on("search-user-global" , async (d)=>{
         var expData = [ ];
-        await getUserData({}).then(res=>{
-            res.forEach((e)=>{
-                if (e.username.length >= data.length && e.username.substring(0 , data.length)==data){
-                    expData.push([e.username , e.avatar]);
-                }
+        console.log(d);
+        const {data , username} = d;
+        console.log(data , username);
+        await getUserData({username:username}).then(async res2=>{
+
+            await getUserData({}).then(res=>{
+                res.forEach((e)=>{
+                    if (e.username.length >= data.length && e.username.substring(0 , data.length)==data && !(Object.keys(res2[0].duos)).includes(e.username)){
+                        expData.push([e.username , e.avatar]);
+                    }
+                })
             })
         })
         socket.emit("search-user-global-response" , expData);
@@ -233,7 +239,6 @@ io.on("connection", function (socket) {
         })
 
     })
-   
     socket.on("disconnect",  ()=> {
         console.log("sending data\n");
         if (Object.keys(socketUsername).includes(socket.id)){
