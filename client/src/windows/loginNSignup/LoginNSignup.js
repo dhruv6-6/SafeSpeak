@@ -101,6 +101,7 @@ const LoginNSignup = (props) => {
                             <ToggleSwitch label="Login" onclick={clicking} />
                         </div>
                     </div>
+
                     <div className="userNameLoginPage">
                         <input
                             className="userNameInputBox"
