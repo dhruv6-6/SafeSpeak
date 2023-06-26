@@ -9,7 +9,6 @@ import cancel from '../../../images/icons/cancel.png'
 import plus from '../../../images/icons/plus.png'
 
 const User = ({area , name , img })=>{
-    const {area , name , img } = props;
     const iconList = [icon1 , icon2 , icon3 , icon4];
     return(
         <>
