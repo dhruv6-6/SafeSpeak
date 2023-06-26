@@ -85,14 +85,16 @@ io.on("connection", function (socket) {
         socket.emit("search-user-global-response" , expData);
     })
     socket.on("send-user-request" , async (data)=>{
-        var expData;
+        var expData , avatar;
         await getUserData({username:data.sender}).then(res=>{
             expData = res[0];
         })
+        await getUserData({username:data.reciever}).then(res=>{
+            avatar = res[0].avatar;
+        })
+        io.to(expData.socketID).emit("update-sentRequestList" , [data.reciever , avatar]);
         if (("sentRequests" in expData)===false)
             expData["sentRequests"] = [];
-        
-        
         expData["sentRequests"] = [ data.reciever  , ...expData["sentRequests"] ];
         await addUserData(expData);
         
@@ -100,6 +102,10 @@ io.on("connection", function (socket) {
         await getUserData({username:data.reciever}).then(res=>{
             expData = res[0];
         })
+        await getUserData({username:data.sender}).then(res=>{
+            avatar = res[0].avatar;
+        })
+        io.to(expData.socketID).emit("update-recievedRequestList" , [data.reciever , avatar]);
         if (("recievedRequests" in expData)===false)
             expData["recievedRequests"] = [];
         

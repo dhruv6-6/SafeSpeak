@@ -9,6 +9,7 @@ import cancel from '../../../images/icons/cancel.png'
 import plus from '../../../images/icons/plus.png'
 
 const User = ({area , name , img })=>{
+    const {area , name , img } = props;
     const iconList = [icon1 , icon2 , icon3 , icon4];
     return(
         <>
@@ -29,7 +30,7 @@ const User = ({area , name , img })=>{
                     </div>
                 </div>
                 <div className="acceptReject_2">
-                    <button className="plusIconButton_2">
+                    <button className="plusIconButton_2" >
                         <img src={plus} className="plusIcon_2"></img>
                     </button>
                 </div>
