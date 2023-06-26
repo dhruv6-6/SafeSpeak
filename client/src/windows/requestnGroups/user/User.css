@@ -178,10 +178,18 @@
     margin-right: 40px;
 }
 .plusIcon_2{
-    margin-top: 5px;
-    height: 65%;
+    height: 100%;
     background-color: transparent;
     margin-right: 10px;
+}
+.plusIconButton_2{
+    background-color: transparent;
+    margin-top: 5px;
+    height: 65%;
+    width: 65%;
+    border-radius: 50px;
+    margin-right: 10px;
+    border-style: none;
 }
 .accept_2{
     background-color: transparent;
@@ -265,4 +273,3 @@
     background-color: #727472;
     opacity: 0.2;
 }
-
