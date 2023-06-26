@@ -28,7 +28,7 @@ const Message = ({message , me}) =>{
     }
 
     return(
-        isSentByCurrentUser===true
+        isSentByCurrentUser===false
         ?
             <div className="messageContainers1">
                 <div className="messageBoxWithMessageOuter1">      
