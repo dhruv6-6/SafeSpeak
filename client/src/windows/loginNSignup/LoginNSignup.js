@@ -10,6 +10,7 @@ import {
 } from "../../helper.js";
 
 const LoginNSignup = (props) => {
+    const { socket, curUserData, setEnter } = props;
     const [login, setLogin] = useState(1);
     const [isLoginError, setIsLoginError] = useState(0);
     const [isSignupError , setIsSignupError] = useState(0);
@@ -17,50 +18,7 @@ const LoginNSignup = (props) => {
     const usernameInput=document.getElementsByClassName("userNameInputBox")[0];
     const passwordInput=document.getElementsByClassName("passwordInputBox")[0];
     
-    const setCorrect=()=>{
-        if(usernameInput && passwordInput){
-            if(login===1){
-                if(isLoginError){
-                    usernameInput.style.backgroundColor = "#FF9E9E";
-                    usernameInput.classList.add('your-class');
-                    usernameInput.value="";
-                    usernameInput.placeholder="Incorrect Username";
-                    passwordInput.style.backgroundColor = "#FF9E9E";
-                    passwordInput.classList.add('your-class');
-                    passwordInput.value="";
-                    passwordInput.placeholder="Or Password";
-                }
-                else{
-                    usernameInput.style.backgroundColor = "#F9FCF8";
-                    usernameInput.value="";
-                    usernameInput.classList.remove('your-class');
-                    usernameInput.placeholder="Username";
-                    passwordInput.style.backgroundColor = "#F9FCF8";
-                    passwordInput.value="";
-                    passwordInput.classList.remove('your-class');
-                    passwordInput.placeholder="Password";
-                }
-            }
-            else{
-                passwordInput.style.backgroundColor = "#F9FCF8";
-                passwordInput.value="";
-                passwordInput.classList.remove('your-class');
-                passwordInput.placeholder="Password";
-                if(isSignupError){
-                    usernameInput.style.backgroundColor = "#FF9E9E";
-                    usernameInput.classList.add('your-class');
-                    usernameInput.value="";
-                    usernameInput.placeholder="Username taken";
-                }
-                else{
-                    usernameInput.style.backgroundColor = "#F9FCF8";
-                    usernameInput.value="";
-                    usernameInput.classList.remove('your-class');
-                    usernameInput.placeholder="Username";
-                }
-            }
-        }
-    }
+   
 
     const focus = ()=>{
         if(usernameInput && passwordInput){
@@ -92,17 +50,11 @@ const LoginNSignup = (props) => {
             }
         }
     }
-
-
     const clicking = () => {
         setLogin(1 ^ login);
     };
 
-    const { socket, curUserData, setEnter } = props;
-
     const enter = () => {
-        console.log(curUserData);
-
         if (curUserData.password && curUserData.username) {
             if (!login) {
                 generateRSAKeys().then(({ publicKey, privateKey }) => {
@@ -127,12 +79,58 @@ const LoginNSignup = (props) => {
                     });
                 });
             } else {
-                console.log("Asking\n" , curUserData.username , curUserData.password);
-
                 socket.emit("login-init", curUserData.username);
             }
         }
     };
+    useEffect(()=>{
+        const check = ()=>{
+            if(usernameInput && passwordInput){
+                if(login===1){
+                    if(isLoginError){
+                        usernameInput.style.backgroundColor = "#FF9E9E";
+                        usernameInput.classList.add('your-class');
+                        usernameInput.value="";
+                        usernameInput.placeholder="Incorrect Username";
+                        passwordInput.style.backgroundColor = "#FF9E9E";
+                        passwordInput.classList.add('your-class');
+                        passwordInput.value="";
+                        passwordInput.placeholder="Or Password";
+                    }
+                    else{
+                        usernameInput.style.backgroundColor = "#F9FCF8";
+                        usernameInput.value="";
+                        usernameInput.classList.remove('your-class');
+                        usernameInput.placeholder="Username";
+                        passwordInput.style.backgroundColor = "#F9FCF8";
+                        passwordInput.value="";
+                        passwordInput.classList.remove('your-class');
+                        passwordInput.placeholder="Password";
+                    }
+                }
+                else{
+                    passwordInput.style.backgroundColor = "#F9FCF8";
+                    passwordInput.value="";
+                    passwordInput.classList.remove('your-class');
+                    passwordInput.placeholder="Password";
+                    if(isSignupError){
+                        usernameInput.style.backgroundColor = "#FF9E9E";
+                        usernameInput.classList.add('your-class');
+                        usernameInput.value="";
+                        usernameInput.placeholder="Username taken";
+                    }
+                    else{
+                        usernameInput.style.backgroundColor = "#F9FCF8";
+                        usernameInput.value="";
+                        usernameInput.classList.remove('your-class');
+                        usernameInput.placeholder="Username";
+                    }
+                }
+            }
+        }
+        check();
+       
+    }, [isLoginError , isSignupError]);
 
     useEffect(() => {
         socket.on("sign-up-complete", (data) => {
@@ -147,30 +145,33 @@ const LoginNSignup = (props) => {
             ).then((privateKey) => {
                 decrypt(privateKey, data.encryptedPassword, 0).then(
                     (password) => {
-                        console.log("compare", password, curUserData.password);
                         if (password === curUserData.password) {
                             curUserData.setPublicKey(data.publicKey);
                             curUserData.setPrivateKey(privateKey);
-
                             socket.emit("login-authenticate", {
                                 ...data,
                                 socketID: curUserData.socketID,
                             });
-                        } else {
+                        }else{
+                            setIsLoginError(1);
                         }
                     }
-                );
-            });
+                ).catch(err=>setIsLoginError(1));
+            }).catch(err=>setIsLoginError(1));
         });
         socket.on("login-success", (data) => {
             socket.emit("get-duoList", curUserData.username);
             setEnter(1);
         });
-
+        socket.on("username-exist" , data=>{
+            setIsSignupError(1);
+        })
         return () => {
             socket.off("sign-up-complete");
             socket.off("login-response");
             socket.off("login-success");
+            socket.off("username-exist");
+
         };
     }, [socket , curUserData.password , curUserData.username]);
 
@@ -213,7 +214,6 @@ const LoginNSignup = (props) => {
 
                                 onClick={() => {
                                     enter();
-                                    setCorrect();
                                 }}
                             >
                                 Log in
@@ -222,9 +222,7 @@ const LoginNSignup = (props) => {
                             <button
                                 className="enterButton2"
                                 onClick={() => {
-                                    console.log("WHEN CLICKED\n",curUserData)
                                     enter();
-                                    setCorrect();
                                 }}
                             >
                                 Sign up
