@@ -261,7 +261,7 @@ io.on("connection", function (socket) {
     });
 });
 async function start() {
-    await dbConnect();
+    await dbConnect(process.env.MONGODB_URI);
     server.listen(port, () => {
         console.log("listening on ", port);
     });

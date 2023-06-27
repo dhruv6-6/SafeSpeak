@@ -1,8 +1,7 @@
 import mongoose from "mongoose";
 import { roomSchema } from "./models/room.mjs";
-const mongoURI = process.env.MONGODB_URI; 
 
-const dbConnect = async function () {
+const dbConnect = async function (mongoURI) {
     await mongoose
         .connect(
             mongoURI,
