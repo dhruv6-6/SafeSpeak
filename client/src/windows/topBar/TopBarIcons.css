@@ -11,6 +11,7 @@
     font-weight: 600;
     line-height: 0px;
     border-style: none;
+    transition: 0.15s;
 }
 .topBarIconButtonOn{
     color: #03373B;
@@ -19,6 +20,9 @@
 .topBarIconButtonOff{
     color: #727472;
     font-size: 15px;
+}
+.topBarIconButtonOff:hover{
+    margin-top: 33px;
 }
 .iconHorizontalLine{
     margin-top: 8px;
