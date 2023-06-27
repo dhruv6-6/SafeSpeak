@@ -6,6 +6,7 @@
     padding-right: 15px;
     justify-content: space-between;
 }
+
 .topBarIcons{
     display: flex;
     flex-direction: row;
