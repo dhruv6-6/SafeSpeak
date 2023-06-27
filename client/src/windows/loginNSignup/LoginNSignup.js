@@ -11,8 +11,8 @@ import {
 
 const LoginNSignup = (props) => {
     const [login, setLogin] = useState(1);
-    const [isLoginError, setIsLoginError] = useState(1);
-    const [isSignupError , setIsSignupError] = useState(1);
+    const [isLoginError, setIsLoginError] = useState(0);
+    const [isSignupError , setIsSignupError] = useState(0);
 
     const usernameInput=document.getElementsByClassName("userNameInputBox")[0];
     const passwordInput=document.getElementsByClassName("passwordInputBox")[0];
