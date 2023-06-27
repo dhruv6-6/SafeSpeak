@@ -16,7 +16,7 @@ const SearchUserArea  = ({users , changeUser , onchange})=>{
         <div className="searchUserAreaMainBody">
             <div className="searchBarChatArea">
                 <img src={search} className="searchIcon"></img>
-                <input className="searchUserInputBox" placeholder="Search" onChange={(e) =>{onchange(e.target.value)}}></input>
+                <input id="searchUserInputBox" className="searchUserInputBox" placeholder="Search" onChange={(e) =>{onchange(e.target.value)}}></input>
             </div>
             <div className="userLogDisplay">
                 {

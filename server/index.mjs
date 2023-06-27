@@ -17,7 +17,7 @@ import {
 
 const app = express();
 app.use(cors());
-
+const port = process.env.PORT || 3000;
 const server = http.createServer(app);
 
 const io = new Server(server, {
@@ -25,6 +25,7 @@ const io = new Server(server, {
         origin: "*",
     },
 });
+
 
 let socketUsername = {};
 app.get("/", (req, res) => {
@@ -259,11 +260,10 @@ io.on("connection", function (socket) {
         console.log("exiting:", socket.id);
     });
 });
-
 async function start() {
     await dbConnect();
-    server.listen(3001, () => {
-        console.log("listening on *:3001");
+    server.listen(port, () => {
+        console.log("listening on ", port);
     });
 }
 start();

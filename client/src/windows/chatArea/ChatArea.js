@@ -9,13 +9,15 @@ const ChatArea = (props)=>{
     const [currentUser , setCurrentUser] = useState(-1);
     const [users , setUsers] = useState([]);
     const [showUsers , setShowUsers] = useState([]);
-    
-    const searchUser = (data)=>{
-        let newuser = users.filter((user) => {
-            return((user.name).length >= data.length && (user.name).slice(0,data.length)===data);
-        })
-        setShowUsers(newuser);
-    }
+    var searchUser = (data)=>{
+            let newuser = users.filter((user) => {
+                return((user.name).length >= data.length && (user.name).slice(0,data.length)===data);
+            })
+            setShowUsers(newuser);
+        };
+    useEffect(()=>{
+        searchUser(document.getElementById("searchUserInputBox").value);
+    }, [users]);
 
     const changeUser = (id) => {
         setShowUsers(showUsers.map((user) => {
@@ -83,7 +85,7 @@ const ChatArea = (props)=>{
             socket.emit("disconnected" , curUserData.username);
         })
         socket.on("addSingle-duoList" , data=>{
-            setUsers(...users , data);
+            setUsers([...users , data]);
         })
 
         return ()=>{
