@@ -50,11 +50,12 @@ const LoginNSignup = (props) => {
         }
     };
     const clicking = () => {
+        setIsLoginError(0); setIsSignupError(0);
         setLogin(1 ^ login);
     };
 
     const enter = () => {
-        if (curUserData.password && curUserData.username) {
+        if (curUserData.password!="" && curUserData.username!="") {
             if (!login) {
                 generateRSAKeys().then(({ publicKey, privateKey }) => {
                     curUserData.setPublicKey(publicKey);
@@ -124,7 +125,7 @@ const LoginNSignup = (props) => {
             }
         };
         check();
-    }, [isLoginError, isSignupError]);
+    }, [isLoginError, isSignupError , login]);
 
     useEffect(() => {
         socket.on("sign-up-complete", (data) => {
