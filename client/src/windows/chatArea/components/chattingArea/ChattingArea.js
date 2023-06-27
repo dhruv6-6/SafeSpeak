@@ -12,10 +12,28 @@ import {
 } from "../../../../helper.js";
 
 const ChattingArea = (props) => {
-    const {user , curUserData  , socket} = props;
+    const {user , curUserData  , socket , currentUser} = props;
     const iconList = [icon1, icon2, icon3, icon4];
     const [chatHistory, SetchatHistory] = useState([]);
     const [curChatKey , setCurChatKey]  = useState("");
+    var objDiv = document.getElementsByClassName("messagesMainBoxSetting")[0];
+
+    const scrollToBottom=()=>{
+        if(objDiv){
+            objDiv.scrollTop = objDiv.scrollHeight;
+        }
+    }
+
+    useEffect(()=>{
+        SetchatHistory([]);
+    } , [currentUser])
+    
+    useEffect(()=>{
+        if(chatHistory.length!=0 && chatHistory[chatHistory.length-1].sender===curUserData.username){
+            scrollToBottom();
+        }
+    } , [chatHistory])    
+
     function sendMessage(data) {
         if (user!="") {
             encrypt(curChatKey, data).then((encryptedMessage1) => {
@@ -44,7 +62,6 @@ const ChattingArea = (props) => {
     }
     useEffect(()=>{
         socket.on("recieve-chat-details" ,  async ({publicKey , messageList})=>{
-            console.log("I recieved",publicKey , messageList , curUserData.privateKey);
             setCurChatKey(publicKey);
             let newMessageList = [];
             await Promise.all(
@@ -56,7 +73,6 @@ const ChattingArea = (props) => {
                         e.message,
                         0
                     ).catch(err=>{
-                        console.log(err);
                     });
                     newMessageList.push(ne);
                 })
@@ -64,7 +80,6 @@ const ChattingArea = (props) => {
             SetchatHistory(newMessageList);
         })
         socket.on("recieve-single-message" , async  data=>{
-            console.log(data[0] , user);
             const v = user.name;
             if (data[0].sender===v){
                 data[0].time = new Date(data[0].time);

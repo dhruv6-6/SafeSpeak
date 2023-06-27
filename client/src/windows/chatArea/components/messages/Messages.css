@@ -15,3 +15,11 @@
 .messagesMainBoxSetting::-webkit-scrollbar{
     display: none;
 }
+.scroller{
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    margin-left: 760px;
+    border-radius: 59302px;
+    background-color: rgb(207, 212, 209);
+}

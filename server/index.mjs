@@ -208,7 +208,6 @@ io.on("connection", function (socket) {
             }));
         }
         if (expData!=null){
-            console.log("your duolist are" , expData)
             socket.emit("recieve-duoList" , expData);
         }
         

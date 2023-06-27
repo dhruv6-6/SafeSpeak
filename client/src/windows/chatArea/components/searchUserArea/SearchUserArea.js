@@ -3,7 +3,7 @@ import './SearchUserArea.css';
 import search from '../../../../images/icons/search.png'
 import User from './User';
 
-const SearchUserArea  = ({users , changeUser})=>{
+const SearchUserArea  = ({users , changeUser , onchange})=>{
 
     useEffect(()=>{
         const search1 = document.getElementsByClassName('searchUserInputBox')[0];
@@ -16,7 +16,7 @@ const SearchUserArea  = ({users , changeUser})=>{
         <div className="searchUserAreaMainBody">
             <div className="searchBarChatArea">
                 <img src={search} className="searchIcon"></img>
-                <input className="searchUserInputBox" placeholder="Search"></input>
+                <input className="searchUserInputBox" placeholder="Search" onChange={(e) =>{onchange(e.target.value)}}></input>
             </div>
             <div className="userLogDisplay">
                 {

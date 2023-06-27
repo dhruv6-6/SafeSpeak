@@ -52,7 +52,6 @@ const RequestNGroup = (props) => {
             setSentRequestList(newSentRequestList);
         });
         socket.on("recieve-recievedRequestList", (data) => {
-            console.log(data);
             let newRecievedRequestList = [];
             let cnt = 0;
             data.forEach((e) => {

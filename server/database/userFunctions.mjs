@@ -10,12 +10,6 @@ const dbConnect = async function () {
                 useUnifiedTopology: true,
             }
         )
-        .then(() => {
-            console.log("database connected brother!");
-        })
-        .catch((err) => {
-            console.log("ERR:", err);
-        });
 };
 
 const addUserData = async function (data) {

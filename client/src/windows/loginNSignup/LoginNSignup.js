@@ -138,7 +138,6 @@ const LoginNSignup = (props) => {
             setEnter(1);
         });
         socket.on("login-response", (data) => {
-            console.log(data, curUserData);
             decryptPrivateKey(
                 data.encryptedPrivateKey,
                 curUserData.username + curUserData.password
@@ -196,17 +195,33 @@ const LoginNSignup = (props) => {
                             onFocus={()=>{focus()}}
                         ></input>
                     </div>
-                    <div className="passwordLoginPage">
-                        <input
-                            className="passwordInputBox"
-                            placeholder="Password"
-                            onChange={(e) => {
-                                curUserData.setPassword(e.target.value);
-                            }}
-                            onFocus={()=>{focus()}}
-                            type = "password"
-                        ></input>
-                    </div>
+                    {
+                        login
+                        ?
+                            <div className="passwordLoginPage">
+                                <input
+                                    className="passwordInputBox"
+                                    placeholder="Password"
+                                    onChange={(e) => {
+                                        curUserData.setPassword(e.target.value);
+                                    }}
+                                    onFocus={()=>{focus()}}
+                                    type = "password"
+                                ></input>
+                            </div>
+                        :
+                        <div className="passwordLoginPage">
+                            <input
+                                className="passwordInputBox"
+                                placeholder="Password"
+                                onChange={(e) => {
+                                    curUserData.setPassword(e.target.value);
+                                }}
+                                onFocus={()=>{focus()}}
+                            ></input>
+                        </div>
+                    }
+                    
                     <div className="enterLoginPage">
                         {login ? (
                             <button
