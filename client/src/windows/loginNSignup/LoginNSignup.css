@@ -20,7 +20,6 @@
     background-color: transparent;
     text-align: center;
     color: #03373B;
-    color: #03373B;
     text-align: center;
     font-size: 34px;
     font-family: Montserrat;
@@ -64,6 +63,9 @@
     font-family: Montserrat;
     font-weight: 600;
 }
+.your-class::-webkit-input-placeholder {
+    color: #03373B;
+ }
 .userNameInputBox:focus{
     outline: none;
 }
@@ -104,7 +106,20 @@
     flex-direction: row;
     justify-content: center;
 }
-.enterButton{
+.enterButton1{
+    height:35px;
+    width: 250px;
+    border-radius: 10px;
+    border-style: none;
+    color: rgba(0, 0, 0, 0.54);
+    text-align: center;
+    font-size: 16px;
+    font-family: Montserrat;
+    font-weight: 600;
+    color: #03373B;
+    box-shadow: 0px 0px 17px 0px rgba(0, 0, 0, 0.25) inset;
+}
+.enterButton2{
     height:35px;
     width: 250px;
     border-radius: 10px;

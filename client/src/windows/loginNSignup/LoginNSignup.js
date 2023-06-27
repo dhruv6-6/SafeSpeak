@@ -11,6 +11,52 @@ import {
 
 const LoginNSignup = (props) => {
     const [login, setLogin] = useState(1);
+    const [isLoginError, setIsLoginError] = useState(1);
+
+    const usernameInput=document.getElementsByClassName("userNameInputBox")[0];
+    const passwordInput=document.getElementsByClassName("passwordInputBox")[0];
+    
+    const setCorrect=()=>{
+        if(usernameInput && passwordInput){
+            if(isLoginError){
+                usernameInput.style.backgroundColor = "#FF9E9E";
+                usernameInput.classList.add('your-class');
+                usernameInput.value="";
+                usernameInput.placeholder="Incorrect Username";
+                passwordInput.style.backgroundColor = "#FF9E9E";
+                passwordInput.classList.add('your-class');
+                passwordInput.value="";
+                passwordInput.placeholder="Or Password";
+            }
+            else{
+                usernameInput.style.backgroundColor = "#F9FCF8";
+                usernameInput.value="";
+                usernameInput.classList.remove('your-class');
+                usernameInput.placeholder="Username";
+                passwordInput.style.backgroundColor = "#F9FCF8";
+                passwordInput.value="";
+                passwordInput.classList.remove('your-class');
+                passwordInput.placeholder="Password";
+            }
+        }
+    }
+
+    const focus = ()=>{
+        if(usernameInput && passwordInput){
+            if(usernameInput.placeholder==="Incorrect Username"){
+                usernameInput.style.backgroundColor = "#F9FCF8";
+                usernameInput.value="";
+                usernameInput.classList.remove('your-class');
+                usernameInput.placeholder="Username";
+                passwordInput.style.backgroundColor = "#F9FCF8";
+                passwordInput.value="";
+                passwordInput.classList.remove('your-class');
+                passwordInput.placeholder="Password";
+                setIsLoginError(0);
+            }
+        }
+    }
+
 
     const clicking = () => {
         setLogin(1 ^ login);
@@ -110,6 +156,7 @@ const LoginNSignup = (props) => {
                                 curUserData.setUsername(e.target.value);
                             
                             }}
+                            onFocus={()=>{focus()}}
                         ></input>
                     </div>
                     <div className="passwordLoginPage">
@@ -119,22 +166,24 @@ const LoginNSignup = (props) => {
                             onChange={(e) => {
                                 curUserData.setPassword(e.target.value);
                             }}
+                            onFocus={()=>{focus()}}
                         ></input>
                     </div>
                     <div className="enterLoginPage">
                         {login ? (
                             <button
-                                className="enterButton"
+                                className="enterButton1"
 
                                 onClick={() => {
                                     enter();
+                                    setCorrect();
                                 }}
                             >
                                 Log in
                             </button>
                         ) : (
                             <button
-                                className="enterButton"
+                                className="enterButton2"
                                 onClick={() => {
                                     console.log("WHEN CLICKED\n",curUserData)
                                     enter();
