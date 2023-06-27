@@ -6,7 +6,7 @@ import LoginNSignup from "./windows/loginNSignup/LoginNSignup";
 import RequestNGroup from "./windows/requestnGroups/RequestNGroup"
 import io from "socket.io-client";
 
-var socket = io.connect("http://localhost:3001", {
+var socket = io.connect("https://safespeakserver.onrender.com", {
     cors: {
         origin: "*",
     },
