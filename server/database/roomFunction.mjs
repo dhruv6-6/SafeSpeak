@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 import { roomSchema } from "./models/room.mjs";
 
-const dbConnect = async function () {
+const dbConnect = async function (mongoURI) {
     await mongoose
         .connect(
-            "mongodb+srv://nougaiarmaan:test123@cluster0.3zaic80.mongodb.net/testDB1?retryWrites=true&w=majority",
+            mongoURI,
             {
                 useNewUrlParser: true,
                 useUnifiedTopology: true,
