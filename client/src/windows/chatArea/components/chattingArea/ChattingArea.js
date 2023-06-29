@@ -1,23 +1,30 @@
 import { React, useState, useEffect } from "react";
 import "./ChattingArea.css";
-import icon1 from "../../../../images/userIcons/1.jpg";
-import icon2 from "../../../../images/userIcons/2.jpg";
-import icon3 from "../../../../images/userIcons/1.jpg";
-import icon4 from "../../../../images/userIcons/2.jpg";
 import back from "../../../../images/icons/back.png";
 import send from "../../../../images/icons/send.png";
 import smile from "../../../../images/icons/smile.png";
 import Messages from "../messages/Messages";
 import { decrypt, encrypt } from "../../../../helper.js";
+import userIcons from "../../../../images/importImages";
 import EmojiPicker from "emoji-picker-react";
 
 const ChattingArea = (props) => {
     const { user, curUserData, socket, currentUser } = props;
-    const iconList = [icon1, icon2, icon3, icon4];
     const [chatHistory, SetchatHistory] = useState([]);
     const [curChatKey, setCurChatKey] = useState("");
     const [emojiPicker, setEmojiPicker] = useState(0);
     var objDiv = document.getElementsByClassName("messagesMainBoxSetting")[0];
+
+    const processOutsideClick = (e)=>{
+        if(emojiPicker){
+            const flyoutEl = document.getElementsByClassName("emojiPicker")[0];
+            let targetEl = e.target;    
+            if(targetEl !== flyoutEl) {
+                flyoutEl.style.display="none";
+            }    
+        }
+    }
+
 
     const goBackToSearch = () => {
         let x = window.matchMedia("(max-width: 650px)");
@@ -128,7 +135,7 @@ const ChattingArea = (props) => {
                         {user && (
                             <>
                                 <img
-                                    src={iconList[user.img]}
+                                    src={userIcons[user.img]}
                                     className="profilePictureAboveChat"
                                 ></img>
                                 <div className="nameDisplayChatArea">
@@ -139,19 +146,38 @@ const ChattingArea = (props) => {
                     </div>
                     <div className="chatAreaIcons"></div>
                 </div>
-                <div className="chatBox">
-                    <div className="messageBoxMain">
+                <div className="chatBox" >
+                    <div className="messageBoxMain" onMouseDown={processOutsideClick}>
                         {user && (
                             <Messages messages={chatHistory} me={user.name} />
                         )}
                     </div>
-
+                    {emojiPicker ? (
+                        <div className="emojiPicker" >
+                            <EmojiPicker
+                                height="100%"
+                                width="100%"
+                                onEmojiClick={(e) => {
+                                    document.getElementById("messageInputMain").value =
+                                        document.getElementById("messageInputMain")
+                                            .value + e.emoji;
+                                    setEmojiPicker(0);
+                                }}
+                                emojiStyle="google"
+                                theme={"white"}
+                            />
+                        </div>      
+                    ) 
+                    : 
+                    <>
+                    </>
+                    }
                     <div className="sendMessageBoxMain">
                         <div className="sendMessageBoxMain_2">
                             <img
                                 src={smile}
                                 className="smileIcon"
-                                onClick={(e) => {
+                                onMouseDown={(e) => {
                                     setEmojiPicker(1 ^ emojiPicker);
                                 }}
                             ></img>
@@ -189,25 +215,7 @@ const ChattingArea = (props) => {
                     </div>
                 </div>
             </div>
-            <div style={{ position: "absolute" , top:"200px" , left:"400px" } }>
-                {emojiPicker ? (
-                    <EmojiPicker
-                        height={"300px"}
-                        width={"400px"}
-                        color={"black"}
-                        onEmojiClick={(e) => {
-                            document.getElementById("messageInputMain").value =
-                                document.getElementById("messageInputMain")
-                                    .value + e.emoji;
-                            setEmojiPicker(0);
-                        }}
-                        searchDisabled={"false"}
-                        theme={"auto"}
-                    />
-                ) : (
-                    <></>
-                )}
-            </div>
+            
         </>
     );
 };

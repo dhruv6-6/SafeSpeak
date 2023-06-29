@@ -41,6 +41,8 @@ function App() {
         publicKey,
         setPublicKey,
     };
+
+    
     return (
         <div className="mainBody">
             {enter ? (

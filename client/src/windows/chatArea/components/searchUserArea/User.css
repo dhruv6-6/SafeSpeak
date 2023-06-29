@@ -7,6 +7,9 @@
     flex-direction: row;
     border-style: none;
 }
+.userIconMainBodyNotFocus:hover{
+    background-color:#efefef;
+}
 
 .userIconMainBodyFocus{
     margin-left: 8px;

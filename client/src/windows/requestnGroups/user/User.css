@@ -88,6 +88,10 @@
     border-radius: 20px;
     border-style: none;
 }
+.tickIconButton_1:hover{
+    border-style:solid;
+    border-color: #03373B;
+}
 .cancelIcon_1{
     height: 100%;
     background-color: transparent;
@@ -99,6 +103,10 @@
     height:65%;
     border-radius: 20px;
     border-style: none;
+}
+.cancelIconButton_1:hover{
+    border-style:solid;
+    border-color: #03373B;
 }
 .accept{
     background-color: transparent;
@@ -195,6 +203,10 @@
     width: 65%;
     border-radius: 50px;
     border-style: none;
+}
+.plusIconButton_2:hover{
+    border-style:solid;
+    border-color: #03373B;
 }
 .accept_2{
     background-color: transparent;
