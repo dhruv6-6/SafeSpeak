@@ -81,6 +81,7 @@ const LoginNSignup = (props) => {
                 socket.emit("login-init", curUserData.username);
             }
         }
+        
     };
     useEffect(() => {
         const check = () => {
@@ -234,6 +235,7 @@ const LoginNSignup = (props) => {
                         <button
                             className="enterButton1"
                             onClick={() => {
+
                                 enter();
                             }}
                         >

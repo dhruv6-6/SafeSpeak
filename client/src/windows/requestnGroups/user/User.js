@@ -9,7 +9,7 @@ import cancel from '../../../images/icons/cancel.png'
 import plus from '../../../images/icons/plus.png'
 
 const User = (props)=>{
-    const {area , name , img  , sendRequest , acceptRequest} = props;
+    const {area , name , img  , sendRequest , acceptRequest , rejectRequest} = props;
     const iconList = [icon1 , icon2 , icon3 , icon4];
     return(
         <>
@@ -55,7 +55,7 @@ const User = (props)=>{
                     <button className="tickIconButton_1" onClick={(e)=>{acceptRequest(name)}}>
                         <img src={tick} className="tickIcon_1"></img>
                     </button>
-                    <button className="cancelIconButton_1">
+                    <button className="cancelIconButton_1" onClick={(e)=>rejectRequest(name)}>
                         <img src={cancel} className="cancelIcon_1"></img>
                     </button>
                 </div>

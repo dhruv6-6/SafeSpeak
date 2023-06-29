@@ -15,7 +15,6 @@ const RequestNGroup = (props) => {
         let x = window.matchMedia("(max-width: 800px)");
         let userDisplay = document.getElementsByClassName("makeFriendsArea")[0];
         let pendingDisplay = document.getElementsByClassName("requestArea")[0];
-        console.log("two");
         if(x.matches){
             if(userDisplay.style.display==="none"){
                 userDisplay.style.display="flex";
@@ -56,8 +55,18 @@ const RequestNGroup = (props) => {
             }
         })
         setRecievedRequestList(newRecievedRequestList);
-        socket.emit("accept-request", [curUserData.username, data]);
+        socket.emit("accept-request", [curUserData.username, data , 1 , ""]);
     };
+    const rejectRequest = (data) => {
+        let newRecievedRequestList = [];
+        recievedRequestList.forEach((e)=>{
+            if (e.name !== data){
+                newRecievedRequestList.push(e);
+            }
+        })
+        setRecievedRequestList(newRecievedRequestList);
+        socket.emit("accept-request", [curUserData.username, data , 0 , document.getElementById("globalUserSearch").value]);
+    }
 
     useEffect(() => {
         socket.on("recieve-sentRequestList", (data) => {
@@ -91,13 +100,12 @@ const RequestNGroup = (props) => {
             });
             setGlobalSearchResult(newGlobalSearchList);
         });
-
-
         socket.on("removeSingle-sentRequestList",data=>{
             let newSentRequestList = sentRequestList.filter((e)=>{
                 return (e.name!=data);
             });
             setSentRequestList(newSentRequestList);
+            userSearch(document.getElementById("globalUserSearch").value);
         });
 
         return () => {
@@ -161,6 +169,7 @@ const RequestNGroup = (props) => {
                                         name={user.name}
                                         img={user.img}
                                         acceptRequest={acceptRequest}
+                                        rejectRequest={rejectRequest}
                                     />
                                 );
                             })}

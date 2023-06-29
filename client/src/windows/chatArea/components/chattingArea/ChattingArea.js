@@ -24,7 +24,6 @@ const ChattingArea = (props) => {
         let searchdisplay = document.getElementsByClassName("searchUserAreaMainBody")[0];
         let chatareadisplay = document.getElementsByClassName("chattingAreaMainBody")[0];
         if(x.matches){
-            console.log("lmao")
             searchdisplay.style.display = "block";
             chatareadisplay.style.display = "none";
         }
