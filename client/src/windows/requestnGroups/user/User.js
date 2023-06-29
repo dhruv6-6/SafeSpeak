@@ -1,16 +1,12 @@
 import React from "react";
 import './User.css'
-import icon1 from '../../../images/userIcons/1.jpg'
-import icon2 from '../../../images/userIcons/2.jpg'
-import icon3 from '../../../images/userIcons/3.jpg'
-import icon4 from '../../../images/userIcons/4.jpg'
+import userIcons from "../../../images/importImages";
 import tick from '../../../images/icons/tick.png'
 import cancel from '../../../images/icons/cancel.png'
 import plus from '../../../images/icons/plus.png'
 
 const User = (props)=>{
     const {area , name , img  , sendRequest , acceptRequest , rejectRequest} = props;
-    const iconList = [icon1 , icon2 , icon3 , icon4];
     return(
         <>
         {
@@ -18,7 +14,7 @@ const User = (props)=>{
             ?
             <div className="userIconMainBodyFocus_2">
                 <div className="userProfilePicture_2">
-                    <img src={iconList[img]} className="profilePicture_2"></img>
+                    <img src={userIcons[img]} className="profilePicture_2"></img>
                 </div>
                 <div className="nameAndInfo_2">
                     <div className="userName_2">
@@ -40,7 +36,7 @@ const User = (props)=>{
             ?
             <div className="userIconMainBodyFocus_1">
                 <div className="userProfilePicture_1">
-                    <img src={iconList[img]} className="profilePicture_1"></img>
+                    <img src={userIcons[img]} className="profilePicture_1"></img>
                 </div>
                 <div className="nameAndInfo_1">
                     <div className="userName_1">
@@ -63,7 +59,7 @@ const User = (props)=>{
             :
             <div className="userIconMainBodyFocus_3">
                 <div className="userProfilePicture_3">
-                    <img src={iconList[img]} className="profilePicture_3"></img>
+                    <img src={userIcons[img]} className="profilePicture_3"></img>
                 </div>
                 <div className="nameAndInfo_3">
                     <div className="userName_3">

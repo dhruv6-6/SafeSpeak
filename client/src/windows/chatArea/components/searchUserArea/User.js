@@ -1,13 +1,9 @@
 import React from "react";
 import './User.css'
-import icon1 from '../../../../images/userIcons/1.jpg'
-import icon2 from '../../../../images/userIcons/2.jpg'
-import icon3 from '../../../../images/userIcons/3.jpg'
-import icon4 from '../../../../images/userIcons/4.jpg'
+import userIcons from "../../../../images/importImages";
 
 
 const User = ({id , name , img , active , focus , onclick})=>{
-    const iconList = [icon1 , icon2 , icon3 , icon4];
     let x = window.matchMedia("(max-width: 650px)");
     return(
         <>
@@ -23,7 +19,7 @@ const User = ({id , name , img , active , focus , onclick})=>{
                             :
                                 <div className="activeOrNot red"></div>
                         }
-                        <img src={iconList[img]} className="profilePicture"></img>
+                        <img src={userIcons[img]} className="profilePicture"></img>
                     </div>
                     <div className="nameAndInfo">
                         <div className="userName">
@@ -44,7 +40,7 @@ const User = ({id , name , img , active , focus , onclick})=>{
                                 :
                                     <div className="activeOrNot red"></div>
                             }
-                            <img src={iconList[img]} className="profilePicture"></img>
+                            <img src={userIcons[img]} className="profilePicture"></img>
                         </div>
                         <div className="nameAndInfo">
                             <div className="userName">
