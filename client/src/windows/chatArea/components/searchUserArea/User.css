@@ -106,3 +106,28 @@
 .lightText{
     color: #dfe1de;
 }
+
+@media only screen and (max-width:400px){
+    .userIconMainBodyNotFocus{
+        height: 60px;
+    }
+    
+    .userIconMainBodyFocus{
+        height: 60px;
+    }
+    .userNameInfo{
+        font-size: 16px;
+    }
+}
+@media only screen and (max-width:270px){
+    .userIconMainBodyNotFocus{
+        height: 50px;
+    }
+    
+    .userIconMainBodyFocus{
+        height: 50px;
+    }
+    .userNameInfo{
+        font-size: 13px;
+    }
+}

@@ -29,15 +29,10 @@ const TopBar = (props)=>{
         window.location.reload();
     }
     return(
-        <div className="topBarMainBody">
-            <div className="logo">
-                
-            </div>
-            <div className="topBarIcons">
-                <TopBarIcons info="Chat" isSelected = {chat} onClick = {chatOnClick} />
-                <TopBarIcons info="Friends and Groups" isSelected = {friendsAndGroups} onClick = {friendsAndGroupsOnClick}/>
-                <TopBarIcons info="Logout" isSelected = {0} onClick = {logOutOnClick}/>
-            </div>
+        <div className="topBarMainBodyOuter">
+            <TopBarIcons className = "firstIcon" info="Chat" isSelected = {chat} onClick = {chatOnClick} />
+            <TopBarIcons info="Friends and Groups" isSelected = {friendsAndGroups} onClick = {friendsAndGroupsOnClick}/>
+            <TopBarIcons info="Logout" isSelected = {0} onClick = {logOutOnClick}/>
         </div>
     )
 }

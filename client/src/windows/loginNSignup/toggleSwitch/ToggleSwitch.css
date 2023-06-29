@@ -28,6 +28,7 @@
     width: 200%;
     margin-left: -100%;
     transition: margin 0.3s ease-in 0s;
+    font-size: 16px;
   }
   .inner_12:before,
   .inner_12:after {
@@ -73,3 +74,43 @@
   .checkbox_12:checked + .label_12 .switch_12 {
     right: 0px;
   }
+  @media only screen and (max-width:450px) {
+    .toggle-switch_12 {
+      width: 170px;
+    }
+    .inner_12 {
+      width: 200%;
+      font-size: 13px;
+    }
+    .inner_12:before {
+      padding-left: 21px;
+    }
+    .inner_12:after {
+      padding-right: 13px;
+    }
+    .switch_12 {
+      width: 85px;
+      margin: 5px;
+      right: 75px;
+    }   
+}
+@media only screen and (max-width:250px) {
+  .toggle-switch_12 {
+    width: 110px;
+  }
+  .inner_12 {
+    width: 200%;
+    font-size: 11px;
+  }
+  .inner_12:before {
+    padding-left: 21px;
+  }
+  .inner_12:after {
+    padding-right: 13px;
+  }
+  .switch_12 {
+    width: 27px;
+    margin: 5px;
+    right: 73px;
+  }   
+}

@@ -55,4 +55,39 @@
 
 .userLogDisplay::-webkit-scrollbar{
     display: none;
-  }
+}
+
+@media only screen and (max-height:550px){
+    .userLogDisplay{
+        height: calc(100% - 100px);
+        max-height: 70vh;
+    }
+}
+
+@media only screen and (max-width:650px){
+    .searchBarChatArea{
+        height: 43px;
+    }
+
+    .searchUserInputBox{
+        height:33px;
+    }
+    
+    .searchIcon{
+        position: absolute;
+        background-color: transparent;
+        margin-top:18px;
+        margin-left: 13px;
+        height:14px;
+    }
+    .searchUserAreaMainBody{
+        width: 95%;
+    }
+}
+
+@media only screen and (min-height:800px){
+    .userLogDisplay{
+        height: calc(100% - 100px);
+        max-height: 90vh;
+    }
+}

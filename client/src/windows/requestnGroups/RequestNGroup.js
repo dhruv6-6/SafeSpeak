@@ -10,6 +10,24 @@ const RequestNGroup = (props) => {
     const [recievedRequestList, setRecievedRequestList] = useState([]);
     const [sentRequestList, setSentRequestList] = useState([]);
 
+    const changeReqScreen = (e)=>{
+        e.stopPropagation();
+        let x = window.matchMedia("(max-width: 800px)");
+        let userDisplay = document.getElementsByClassName("makeFriendsArea")[0];
+        let pendingDisplay = document.getElementsByClassName("requestArea")[0];
+        console.log("two");
+        if(x.matches){
+            if(userDisplay.style.display==="none"){
+                userDisplay.style.display="flex";
+                pendingDisplay.style.display="none";
+            }
+            else{
+                userDisplay.style.display="none";
+                pendingDisplay.style.display="flex";
+            }
+        }
+    }
+
     const sendRequest = (name , img) => {
         setSentRequestList([{id:sentRequestList.length , name:name , img:img} , ...sentRequestList]);
         let newGlobalSearchList = [];
@@ -92,10 +110,10 @@ const RequestNGroup = (props) => {
 
     return (
         <div className="requestAreaMainBody">
+            <div className="sliderMakeFriends" onMouseDown = {(e)=>{changeReqScreen(e)}}>
+                <ToggleSwitch label={"lul"} />
+            </div>
             <div className="makeFriendsArea">
-                <div className="sliderMakeFriends">
-                    <ToggleSwitch label={"lul"} />
-                </div>
                 <div className="searchUserAreaRequests">
                     <div className="addUserBox">
                         <div className="searchBarAddUser">

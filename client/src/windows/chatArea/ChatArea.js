@@ -4,6 +4,7 @@ import SearchUserArea from './components/searchUserArea/SearchUserArea';
 import ChattingArea from './components/chattingArea/ChattingArea';
 
 
+
 const ChatArea = (props)=>{
     const {socket ,curUserData} = props;
     const [currentUser , setCurrentUser] = useState(-1);
@@ -20,6 +21,14 @@ const ChatArea = (props)=>{
     }, [users]);
 
     const changeUser = (id) => {
+        let x = window.matchMedia("(max-width: 650px)");
+        let searchdisplay = document.getElementsByClassName("searchUserAreaMainBody")[0];
+        let chatareadisplay = document.getElementsByClassName("chattingAreaMainBody")[0];
+        
+        if(x.matches){
+            searchdisplay.style.display = "none";
+            chatareadisplay.style.display = "block";
+        }
         setShowUsers(showUsers.map((user) => {
             if(user.id===id){
                 socket.emit("get-chat-details" , [curUserData.username , user.name]);

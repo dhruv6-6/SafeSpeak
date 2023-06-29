@@ -1,14 +1,26 @@
-.topBarMainBody{
+.topBarMainBodyOuter{
+    background: transparent;
     width:100%;
-    height: 65px;
+    height: 50px;
+    min-height: 50px;
+    margin-bottom: 5px;
     display: flex;
+    padding-right: 18px;
+    padding-left: 18px;
     flex-direction: row;
-    padding-right: 15px;
-    justify-content: space-between;
+    overflow: auto;
+    overflow-y: hidden;
 }
-
-.topBarIcons{
-    display: flex;
-    flex-direction: row;
-    padding-right: 5px;
+.topBarMainBodyOuter::-webkit-scrollbar {
+    display: none;
+}
+.topBarMainBodyOuter .topBarIconMainBodyInner:first-child{
+    margin-left: auto;
+}
+@media only screen and (max-width:400px){
+    .topBarMainBodyOuter{
+        height: 45px;
+        min-height: 45px;
+        margin-bottom: 8px;
+    }
 }

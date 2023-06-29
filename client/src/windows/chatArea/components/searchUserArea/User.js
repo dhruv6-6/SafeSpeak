@@ -8,10 +8,11 @@ import icon4 from '../../../../images/userIcons/4.jpg'
 
 const User = ({id , name , img , active , focus , onclick})=>{
     const iconList = [icon1 , icon2 , icon3 , icon4];
+    let x = window.matchMedia("(max-width: 650px)");
     return(
         <>
             {
-                focus
+                (focus && !x.matches)
                 ?
                 <button className="userIconMainBodyFocus darkBackground" onClick={ () => {onclick(id)}}>
                     <div className="userProfilePicture">
