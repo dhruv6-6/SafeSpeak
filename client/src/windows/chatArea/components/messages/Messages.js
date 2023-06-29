@@ -19,7 +19,6 @@ const Mesages = ({messages , me}) =>{
             <div className="messagesMainBoxSetting">
                 {messages.map((message , i) => <div key = {i}><Message message = {message} me={me}/></div>)}
             </div>
-            <div className="scroller" onClick={scrollToBottom}></div>
         </>
     );
 }

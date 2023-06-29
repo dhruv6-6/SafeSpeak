@@ -4,6 +4,7 @@ import icon1 from "../../../../images/userIcons/1.jpg";
 import icon2 from "../../../../images/userIcons/2.jpg";
 import icon3 from "../../../../images/userIcons/1.jpg";
 import icon4 from "../../../../images/userIcons/2.jpg";
+import back from "../../../../images/icons/back.png"
 import send from "../../../../images/icons/send.png";
 import smile from "../../../../images/icons/smile.png";
 import Messages from "../messages/Messages";
@@ -18,6 +19,16 @@ const ChattingArea = (props) => {
     const [curChatKey , setCurChatKey]  = useState("");
     var objDiv = document.getElementsByClassName("messagesMainBoxSetting")[0];
 
+    const goBackToSearch = ()=>{
+        let x = window.matchMedia("(max-width: 650px)");
+        let searchdisplay = document.getElementsByClassName("searchUserAreaMainBody")[0];
+        let chatareadisplay = document.getElementsByClassName("chattingAreaMainBody")[0];
+        if(x.matches){
+            console.log("lmao")
+            searchdisplay.style.display = "block";
+            chatareadisplay.style.display = "none";
+        }
+    }
     const scrollToBottom=()=>{
         if(objDiv){
             objDiv.scrollTop = objDiv.scrollHeight;
@@ -99,6 +110,9 @@ const ChattingArea = (props) => {
         <div className="chattingAreaMainBody">
             <div className="userInfoAndIcons">
                 <div className="userProfilePictureAboveChat">
+                    <button className="backButton" onClick={goBackToSearch}>
+                        <img src={back} className="backButtonImage"></img>
+                    </button>
                     {user && (
                         <>
                             <img

@@ -3,7 +3,7 @@ import './TopBarIcons.css'
 
 const TopBarIcons= ({info , isSelected , onClick}) =>{
     return(
-        <div className="topBarIconMainBody">
+        <div className="topBarIconMainBodyInner">
             {
                 isSelected?
                 <>

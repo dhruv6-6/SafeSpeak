@@ -4,7 +4,6 @@ import search from '../../../../images/icons/search.png'
 import User from './User';
 
 const SearchUserArea  = ({users , changeUser , onchange})=>{
-
     useEffect(()=>{
         const search1 = document.getElementsByClassName('searchUserInputBox')[0];
         search1.addEventListener('keyup',function(e){

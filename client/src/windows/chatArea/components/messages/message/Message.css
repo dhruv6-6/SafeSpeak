@@ -9,7 +9,7 @@
     background-color: transparent;
     display: flex;
     flex-direction: row;
-    justify-content: end;
+    justify-content: flex-end;
 }
 .messageBoxWithMessageOuter2{
     background-color: transparent;
@@ -26,33 +26,29 @@
     font-size: 13px;
     font-family: Montserrat;
     font-weight: 500;
+    max-width: 400px;
     word-wrap: break-word;
-}
-.hisMesage{
+    box-shadow: 2px 5px 9px 0px rgba(0, 0, 0, 0.33) inset;
     padding-left: 12px;
     padding-right: 12px;
+}
+.hisMesage{
     margin-left: 50px;
-    max-width: 400px;
     align-items: flex-end;
     border-radius: 0px 13px 13px 13px;
     background: rgba(83, 166, 116, 0.61);
-    box-shadow: 2px 5px 9px 0px rgba(0, 0, 0, 0.33) inset;
 }
 .myMesage{
-    padding-left: 12px;
-    padding-right: 12px;
     margin-right: 50px;
-    max-width: 400px;
     justify-content: flex-end;
     border-radius: 13px 0px 13px 13px;
     background: #D4E4D3;
-    box-shadow: 2px 5px 9px 0px rgba(0, 0, 0, 0.33) inset;    
 }
 .timeBoxOuter1{
     background-color: transparent;
     display: flex;
     flex-direction: row;
-    justify-content: end;
+    justify-content: flex-end;
 }
 .timeArea1{
     margin-right: 65px;
@@ -71,4 +67,95 @@
     font-family: Montserrat;
     font-weight: 500;
     margin-top: 5px;
+}
+
+@media only screen and (max-width:400px){
+    .messageBoxWithMessage{
+        font-size: 12px;
+        max-width: 200px;
+    }
+    .timeArea1{
+        font-size: 10px;
+    }
+    .timeArea2{
+        font-size: 10px;
+    }
+    .hisMesage{
+        margin-left: 35px;
+    }
+    .myMesage{
+        margin-right: 35px;
+    }
+}
+@media only screen and (max-width:290px){
+    .messageBoxWithMessage{
+        font-size: 12px;
+        max-width: 140px;
+    }
+    .timeArea1{
+        font-size: 10px;
+    }
+    .timeArea2{
+        font-size: 10px;
+    }
+    .hisMesage{
+        margin-left: 20px;
+    }
+    .myMesage{
+        margin-right: 20px;
+    }
+}
+@media only screen and (max-width:210px){
+    .messageBoxWithMessage{
+        font-size: 8px;
+        max-width: 80px;
+    }
+    .timeArea1{
+        font-size:6px;
+    }
+    .timeArea2{
+        font-size: 6px;
+    }
+    .hisMesage{
+        margin-left: 10px;
+    }
+    .myMesage{
+        margin-right: 10px;
+    }
+}
+@media only screen and (max-width:900px){
+    .messageBoxWithMessage{
+        font-size: 13px;
+        max-width: 300px;
+    }
+    .timeArea1{
+        font-size: 10px;
+    }
+    .timeArea2{
+        font-size: 10px;
+    }
+    .hisMesage{
+        margin-left: 35px;
+    }
+    .myMesage{
+        margin-right: 35px;
+    }
+}
+@media only screen and (max-width:760px){
+    .messageBoxWithMessage{
+        font-size: 13px;
+        max-width: 200px;
+    }
+    .timeArea1{
+        font-size: 10px;
+    }
+    .timeArea2{
+        font-size: 10px;
+    }
+    .hisMesage{
+        margin-left: 35px;
+    }
+    .myMesage{
+        margin-right: 35px;
+    }
 }

@@ -1,18 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import "./ToggleSwitch.css";
   
-const ToggleSwitch = ({ label , onclick}) => {
+const ToggleSwitch = ({ label }) => {
+
   return (
-    <div className="container">
-      <div className="toggle-switch">
-        <input type="checkbox" className="checkbox" 
-               name={label} id={label} />
-        <label className="label" htmlFor={label}>
-          <span className="inner" onClick={onclick}/>
-          <span className="switch" onClick={onclick} />
-        </label>
+      <div className="container">
+        <div className="toggle-switch">
+          <input type="checkbox" className="checkbox" 
+                 name={label} id={label} />
+          <label className="label" htmlFor={label}>
+            <span className="inner" onClick={onclick}/>
+            <span className="switch" onClick={onclick} />
+          </label>
+        </div>
       </div>
-    </div>
   );
 };
   

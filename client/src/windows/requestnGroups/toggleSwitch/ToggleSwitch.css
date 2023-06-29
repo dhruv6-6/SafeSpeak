@@ -43,14 +43,14 @@
   }
   .inner:before {
     padding-top: 6px;
-    content: "Make Group";
+    content: "Add Friends";
     padding-left: 70px;
     background-color:  #03373B;
     color: #F9FCF8;
   }
   .inner:after {
     padding-top: 6px;
-    content: "Add User";
+    content: "Requests";
     padding-right: 85px;
     background-color:  #03373B;
     color: #F9FCF8;
@@ -75,4 +75,36 @@
   }
   .checkbox:checked + .label .switch {
     right: 0px;
+  }
+
+  @media only screen and (max-width:540px){
+    .inner:before {
+      padding-left: 50px;
+    }
+    .inner:after {
+      padding-right: 45px;
+    }
+  }
+  @media only screen and (max-width:430px){
+    .inner:before {
+      padding-left: 35px;
+    }
+    .inner:after {
+      padding-right: 45px;
+    }
+    .switch {
+      right: 47%;
+    }
+  }
+  @media only screen and (max-width:350px){
+    .inner:before {
+      padding-left: 22px;
+    }
+    .inner:after {
+      padding-right: 36px;
+    }
+    .switch {
+      width: 30%;
+      right: 66%;
+    }
   }
